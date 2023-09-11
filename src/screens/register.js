@@ -9,14 +9,12 @@ const formValues = {
   password: '',
 };
 
-const Register = () => {
-  return (
-    <FormikForm
-      validationSchema={registerFormSchema}
-      formValues={formValues}
-      handleSubmit={() => {}}
-    />
-  );
-};
+const Register = () => (
+  <FormikForm
+    validationSchema={registerFormSchema}
+    formValues={formValues}
+    handleSubmit={() => {}}
+  />
+);
 
 export default Register;
