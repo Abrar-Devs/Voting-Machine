@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import LoginScreen from '../screens/loginScreen';
 import RegisterScreen from '../screens/registerScreen';
-import {getAllConstitutions} from '../features/user/userSlice';
+import {getAllConstitutions, checkSession} from '../features/user/userSlice';
 import UserProfileScreen from '../screens/UserProfileScreen';
 
 const StackNav = createNativeStackNavigator();
@@ -15,6 +15,7 @@ const AuthApp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(checkSession());
     dispatch(getAllConstitutions());
   }, []);
 

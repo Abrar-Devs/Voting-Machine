@@ -47,7 +47,7 @@ export const getAllDocs = async collectionName => {
   } catch (error) {}
 };
 
-export const getDoc = async (collectionName, key, value) => {
+export const getDocByKey = async (collectionName, key, value) => {
   try {
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef, where(key, '==', value));

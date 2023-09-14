@@ -6,7 +6,7 @@ import {
 } from 'firebase/auth';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import {collection, addDoc} from 'firebase/firestore';
-import {getAllDocs, getDoc} from '../../utils/helpers';
+import {getAllDocs, getDocByKey} from '../../utils/helpers';
 
 const initialState = {
   user: null,
@@ -23,7 +23,8 @@ const firebaseLogin = createAsyncThunk(
         password,
       );
 
-      const userDetails = await getDoc('users', 'email', email);
+      console.log('user credentials:', userCredential.user.uid);
+      const userDetails = await getDocByKey('users', 'email', email);
       console.log('User details', userDetails);
       return userDetails;
     } catch (error) {
@@ -31,6 +32,20 @@ const firebaseLogin = createAsyncThunk(
     }
   },
 );
+
+const checkSession = createAsyncThunk('user/checkSession', async () => {
+  try {
+    const userDetails = await getDocByKey(
+      'users',
+      'email',
+      auth.currentUser.email,
+    );
+    console.log('User details in checksession ', userDetails);
+    return userDetails;
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 const firebaseRegister = createAsyncThunk('user/register', async values => {
   try {
@@ -46,10 +61,9 @@ const firebaseRegister = createAsyncThunk('user/register', async values => {
     await uploadBytes(filesFolderRef, values.profilePic.uri);
     const downloadURL = await getDownloadURL(filesFolderRef);
 
-    //add the user to collection
     console.log('before adding user to collection');
     const usersCollectionRef = collection(db, 'users');
-    console.log('adding user to collection');
+    console.log('adding  user to collection');
     await addDoc(usersCollectionRef, {...values, profilePic: downloadURL});
     console.log('user added');
 
@@ -84,11 +98,14 @@ export const userSlice = createSlice({
       .addCase(firebaseRegister.fulfilled, (state, action) => {
         state.user = action.payload;
       })
+      .addCase(checkSession.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
       .addCase(getAllConstitutions.fulfilled, (state, action) => {
         state.constitutions = action.payload;
       });
   },
 });
 
-export {firebaseLogin, firebaseRegister, getAllConstitutions};
+export {firebaseLogin, firebaseRegister, checkSession, getAllConstitutions};
 export default userSlice.reducer;
