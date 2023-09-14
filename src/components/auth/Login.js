@@ -1,37 +1,40 @@
 import React from 'react';
+import {TouchableOpacity, Text} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
-import {loginFormSchema} from '../../validation/yupValidations';
 import FormikForm from '../common/FormikForm';
-import {auth} from '../../config/firebase';
-import {signInWithEmailAndPassword, signOut} from 'firebase/auth';
+import globalStyles from '../../utils/styles/globalstyles';
+import {firebaseLogin} from '../../features/user/userSlice';
+import {loginFormSchema} from '../../utils/validation/yupValidations';
 
 const formValues = {
   email: '',
   password: '',
 };
 
-const handleSubmit = async values => {
-  console.log(auth.currentUser);
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password,
-    );
-
-    console.log('User signed in successfully:', userCredential.user);
-  } catch (error) {
-    console.log(error);
-  }
-};
 const Login = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async values => {
+    dispatch(firebaseLogin(values));
+  };
+
   return (
-    <FormikForm
-      title={'Sign In'}
-      validationSchema={loginFormSchema}
-      formValues={formValues}
-      handleSubmit={handleSubmit}
-    />
+    <>
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <Text style={[globalStyles.text, globalStyles.linkText]}>
+          Don't have an account?
+        </Text>
+      </TouchableOpacity>
+      <FormikForm
+        title={'Login'}
+        validationSchema={loginFormSchema}
+        formValues={formValues}
+        handleSubmit={handleSubmit}
+      />
+    </>
   );
 };
 

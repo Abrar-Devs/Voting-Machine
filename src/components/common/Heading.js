@@ -11,13 +11,13 @@ const Heading = ({text}) => {
 
 const styles = StyleSheet.create({
   headingContainer: {
-    backgroundColor: 'transparent', // Set a transparent background
+    backgroundColor: 'transparent',
     padding: 10,
     marginBottom: 10,
   },
   headingText: {
     fontSize: 24,
-    color: '#333', // Change text color to a darker shade
+    color: '#333',
     fontWeight: 'bold',
     textAlign: 'center',
   },

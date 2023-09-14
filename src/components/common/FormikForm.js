@@ -6,13 +6,14 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
 import {Formik} from 'formik';
+import React, {useState} from 'react';
 
 import globalStyles from '../../utils/styles/globalstyles';
 import {MyTextInput} from './MyTextInput';
 import {openImagePicker} from '../../utils/helpers';
 import Heading from './Heading';
+import DropdownPicker from './DropdownPicker';
 
 const FormikForm = ({
   title,
@@ -20,6 +21,7 @@ const FormikForm = ({
   formValues,
   handleSubmit,
   showImgPicker = false,
+  constitutions,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -50,22 +52,32 @@ const FormikForm = ({
           <View style={[globalStyles.container, styles.container]}>
             <Heading text={title} />
             {Object.keys(formValues).map(value => {
-              return (
-                <MyTextInput
-                  key={value}
-                  label={value}
-                  name={value}
-                  secureTextEntry={value === 'password' ? true : false}
-                  placeholder={value}
-                  onChangeText={formikProps.handleChange(value)}
-                  onBlur={formikProps.handleBlur(value)}
-                  value={formikProps.values[value]}
-                  style={globalStyles.input}
-                  touched={formikProps.touched[value]}
-                  error={formikProps.errors[value]}
-                />
-              );
+              if (value != 'constitution')
+                return (
+                  <MyTextInput
+                    key={value}
+                    label={value}
+                    name={value}
+                    secureTextEntry={value === 'password' ? true : false}
+                    placeholder={value}
+                    onChangeText={formikProps.handleChange(value)}
+                    onBlur={formikProps.handleBlur(value)}
+                    value={formikProps.values[value]}
+                    style={globalStyles.input}
+                    touched={formikProps.touched[value]}
+                    error={formikProps.errors[value]}
+                  />
+                );
             })}
+
+            {constitutions && (
+              <DropdownPicker
+                label="Your Constitution"
+                items={constitutions}
+                selectedValue={formikProps.values.constitution}
+                onValueChange={formikProps.handleChange('constitution')}
+              />
+            )}
 
             {showImgPicker && (
               <View>

@@ -1,12 +1,15 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
 
-import Login from '../screens/loginScreen';
-// import Register from '../components/auth/Register';
+import AuthApp from './AuthApp';
+import {store} from './store';
 
 const Index = () => (
   <SafeAreaProvider>
-    <Login />
+    <Provider store={store}>
+      <AuthApp />
+    </Provider>
   </SafeAreaProvider>
 );
 

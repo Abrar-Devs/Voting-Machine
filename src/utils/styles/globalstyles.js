@@ -12,6 +12,10 @@ const globalStyles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
   },
+  linkText: {
+    textDecorationLine: 'underline',
+    color: 'skyblue',
+  },
   label: {
     fontSize: 18,
     color: '#007acc',

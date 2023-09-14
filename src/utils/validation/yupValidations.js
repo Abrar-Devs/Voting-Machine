@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 
 export const registerFormSchema = Yup.object().shape({
-  firstName: Yup.string()
+  name: Yup.string()
+    .required('Name is required')
     .min(5, 'Name must be at least 5 characters long')
     .max(15, 'Name must not exceed 15 characters')
     .trim(),
