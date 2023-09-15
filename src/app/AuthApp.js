@@ -7,11 +7,13 @@ import LoginScreen from '../screens/loginScreen';
 import RegisterScreen from '../screens/registerScreen';
 import {getAllConstitutions, checkSession} from '../actions/asyncActions';
 import UserProfileScreen from '../screens/UserProfileScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const StackNav = createNativeStackNavigator();
 
 const AuthApp = () => {
   const currentUser = useSelector(state => state.user);
+  const loading = useSelector(state => state.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const AuthApp = () => {
     dispatch(getAllConstitutions());
   }, []);
 
+  if (loading) return <LoadingScreen />;
   if (currentUser) return <UserProfileScreen />;
 
   return (

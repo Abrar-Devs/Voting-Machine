@@ -6,8 +6,8 @@ import {registerFormSchema} from '../../utils/validation/yupValidations';
 import {useSelector, useDispatch} from 'react-redux';
 import {firebaseRegister} from '../../actions/asyncActions';
 
-//aA1!qwerty
 //abrar@gmail.com
+//aA1!qwerty
 const formValues = {
   name: '',
   email: '',
