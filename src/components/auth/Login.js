@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 
 import FormikForm from '../common/FormikForm';
 import globalStyles from '../../utils/styles/globalstyles';
-import {firebaseLogin} from '../../features/user/userSlice';
+import {firebaseLogin} from '../../actions/asyncActions';
 import {loginFormSchema} from '../../utils/validation/yupValidations';
 
 const formValues = {

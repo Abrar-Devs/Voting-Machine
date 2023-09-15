@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import LoginScreen from '../screens/loginScreen';
 import RegisterScreen from '../screens/registerScreen';
-import {getAllConstitutions, checkSession} from '../features/user/userSlice';
+import {getAllConstitutions, checkSession} from '../actions/asyncActions';
 import UserProfileScreen from '../screens/UserProfileScreen';
 
 const StackNav = createNativeStackNavigator();

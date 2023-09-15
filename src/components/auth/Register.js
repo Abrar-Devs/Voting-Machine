@@ -4,7 +4,7 @@ import FormikForm from '../common/FormikForm';
 import {registerFormSchema} from '../../utils/validation/yupValidations';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {firebaseRegister} from '../../features/user/userSlice';
+import {firebaseRegister} from '../../actions/asyncActions';
 
 //aA1!qwerty
 //abrar@gmail.com
