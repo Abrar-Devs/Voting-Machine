@@ -22,17 +22,15 @@ const FormikForm = ({
   handleSubmit,
   showImgPicker = false,
   constitutions,
+  btnText,
+  imgText,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImgSelection = async () => {
     try {
       const selectedImage = await openImagePicker();
-      if (selectedImage) {
-        setSelectedImage(selectedImage);
-      } else {
-        console.log('User cancelled image picker');
-      }
+      if (selectedImage) setSelectedImage(selectedImage);
     } catch (error) {
       console.error('Image picker error: ', error);
     }
@@ -90,7 +88,7 @@ const FormikForm = ({
                       globalStyles.text,
                       {textDecorationLine: 'underline'},
                     ]}>
-                    Choose Image
+                    {imgText}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -100,7 +98,7 @@ const FormikForm = ({
               style={[globalStyles.btn, styles.btn]}
               onPress={formikProps.handleSubmit}
               disabled={!formikProps.isValid}>
-              <Text>{title}</Text>
+              <Text>{btnText}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

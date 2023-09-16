@@ -33,6 +33,7 @@ const Login = () => {
         validationSchema={loginFormSchema}
         formValues={formValues}
         handleSubmit={handleSubmit}
+        btnText="Login"
       />
     </>
   );

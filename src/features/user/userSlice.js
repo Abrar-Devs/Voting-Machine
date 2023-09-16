@@ -5,12 +5,19 @@ import {
   firebaseRegister,
   checkSession,
   getAllConstitutions,
+  submitCandidateApplication,
+  getCandidateApplications,
+  getCandidateProfile,
+  approveCandidateApplication,
 } from '../../actions/asyncActions';
 
 const initialState = {
   user: null,
+  isAdmin: false,
   loading: false,
   constitutions: [],
+  candidate: null,
+  applications: [],
 };
 
 export const userSlice = createSlice({
@@ -24,6 +31,7 @@ export const userSlice = createSlice({
       .addCase(firebaseLogin.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loading = false;
+        if (state.user.email == 'admin@gmail.com') state.isAdmin = true;
       })
 
       .addCase(firebaseRegister.pending, state => {
@@ -31,13 +39,30 @@ export const userSlice = createSlice({
       })
       .addCase(firebaseRegister.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.loading = false;
       })
 
       .addCase(checkSession.fulfilled, (state, action) => {
         state.user = action.payload ?? null;
+        if (state.user?.email == 'admin@gmail.com') state.isAdmin = true;
       })
+
       .addCase(getAllConstitutions.fulfilled, (state, action) => {
         state.constitutions = action.payload;
+      })
+
+      .addCase(getCandidateProfile.fulfilled, (state, action) => {
+        state.candidate = action.payload;
+      })
+
+      .addCase(submitCandidateApplication.fulfilled, (state, action) => {
+        state.candidate = action.payload;
+      })
+      .addCase(getCandidateApplications.fulfilled, (state, action) => {
+        state.applications = action.payload ?? [];
+      })
+      .addCase(approveCandidateApplication.fulfilled, (state, action) => {
+        state.applications = action.payload ?? [];
       });
   },
 });

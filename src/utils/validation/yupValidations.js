@@ -25,3 +25,11 @@ export const registerFormSchema = Yup.object().shape({
 export const loginFormSchema = Yup.object().shape({
   email: Yup.string().email().required('A Valid email is required'),
 });
+
+export const applicationFormSchema = Yup.object().shape({
+  partyName: Yup.string()
+    .required('Party Name is required')
+    .min(5, 'Party Name must be at least 5 characters long')
+    .max(15, 'Party Name must not exceed 15 characters')
+    .trim(),
+});

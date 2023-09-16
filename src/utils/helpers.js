@@ -64,3 +64,25 @@ export const getDocByKey = async (collectionName, key, value) => {
     console.log('in getDoc', error);
   }
 };
+
+export const getDocsByKey = async (collectionName, key, value) => {
+  try {
+    const collectionRef = collection(db, collectionName);
+    const q = query(collectionRef, where(key, '==', value));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log('did not find applications');
+      return null;
+    }
+
+    const filteredData = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    console.log('candidates applications: ', FileReader);
+    return filteredData;
+  } catch (error) {
+    console.log('in getDoc', error);
+  }
+};

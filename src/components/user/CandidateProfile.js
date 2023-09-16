@@ -1,33 +1,26 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Avatar, Card, Divider} from 'react-native-elements';
+import {Avatar, Card} from 'react-native-elements';
 import {useSelector} from 'react-redux';
 import globalStyles from '../../utils/styles/globalstyles';
 
-const UserProfile = () => {
-  const user = useSelector(state => state.user);
-  console.log('in usrProfile', user);
+const CandidateProfile = () => {
+  const candidate = useSelector(state => state.candidate);
+  console.log('in candidateProfile', candidate);
   return (
     <View style={globalStyles.container}>
-      <View>
+      <Card>
         <Avatar
           rounded
           size="xlarge"
-          source={{uri: user.profilePic}}
+          source={{uri: candidate.partySymbol}}
           containerStyle={styles.avatarContainer}
         />
-        {/* <Image
-          style={styles.img}
-          source={{
-            uri: user.profilePic,
-          }}
-        /> */}
-        <Text style={styles.username}>{user.name}</Text>
-        <Divider style={styles.divider} />
-        <Text style={styles.userInfo}>Email: {user.email}</Text>
-        <Text style={styles.userInfo}>Constitution: {user.constitution}</Text>
-        <Text style={styles.userInfo}>CNIC: {user.cnic}</Text>
-      </View>
+        <Text style={styles.username}>Party Name: {candidate.partyName}</Text>
+        <Text style={styles.username}>
+          Approved: {candidate.approved ? 'Yes' : 'Not'}
+        </Text>
+      </Card>
     </View>
   );
 };
@@ -64,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default CandidateProfile;

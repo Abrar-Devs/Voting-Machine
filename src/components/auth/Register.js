@@ -32,6 +32,8 @@ const Register = () => {
       handleSubmit={handleSubmit}
       showImgPicker={true}
       constitutions={constitutions}
+      btnText="Register"
+      imgText="Choose profile pic"
     />
   );
 };

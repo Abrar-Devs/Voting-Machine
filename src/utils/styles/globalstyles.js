@@ -5,16 +5,22 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   text: {
     fontSize: 16,
     color: 'black',
-    padding: 10,
     textAlign: 'center',
   },
   linkText: {
     textDecorationLine: 'underline',
     color: 'skyblue',
+  },
+  boldText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 10,
   },
   label: {
     fontSize: 18,

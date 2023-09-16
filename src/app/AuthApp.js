@@ -6,23 +6,24 @@ import {useDispatch, useSelector} from 'react-redux';
 import LoginScreen from '../screens/loginScreen';
 import RegisterScreen from '../screens/registerScreen';
 import {getAllConstitutions, checkSession} from '../actions/asyncActions';
-import UserProfileScreen from '../screens/UserProfileScreen';
 import LoadingScreen from '../screens/LoadingScreen';
-
+import Dashboard from './Dashboard';
 const StackNav = createNativeStackNavigator();
 
 const AuthApp = () => {
   const currentUser = useSelector(state => state.user);
   const loading = useSelector(state => state.loading);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkSession());
     dispatch(getAllConstitutions());
   }, []);
+  console.log('deeed');
 
   if (loading) return <LoadingScreen />;
-  if (currentUser) return <UserProfileScreen />;
+  if (currentUser) return <Dashboard />;
 
   return (
     <NavigationContainer>
