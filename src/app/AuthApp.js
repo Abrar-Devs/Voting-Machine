@@ -3,10 +3,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
 
-import LoginScreen from '../screens/loginScreen';
-import RegisterScreen from '../screens/registerScreen';
+import LoginScreen from '../screens/auth/loginScreen';
+import RegisterScreen from '../screens/auth/registerScreen';
 import {getAllConstitutions, checkSession} from '../actions/asyncActions';
-import LoadingScreen from '../screens/LoadingScreen';
+import LoadingScreen from '../screens/common/LoadingScreen';
 import Dashboard from './Dashboard';
 const StackNav = createNativeStackNavigator();
 

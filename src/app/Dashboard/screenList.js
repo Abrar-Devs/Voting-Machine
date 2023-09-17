@@ -1,9 +1,9 @@
-import UserProfileScreen from '../../screens/UserProfileScreen';
-import ElectionsScreen from '../../screens/ElectionsScreen';
-import CandidateProfileScreen from '../../screens/CandidateProfileScreen';
-import ApplicationsScreen from '../../screens/ApplicationsScreen';
-import NewElectionScreen from '../../screens/NewElectionScreen';
-import PollingScreen from '../../screens/PollingScreen';
+import UserProfileScreen from '../../screens/user/UserProfileScreen';
+import CandidateProfileScreen from '../../screens/user/CandidateProfileScreen';
+import PollingScreen from '../../screens/polling/PollingScreen';
+import ElectionsScreen from '../../screens/user/ElectionsScreen';
+import NewElectionScreen from '../../screens/user/NewElectionScreen';
+import ApplicationsScreen from '../../screens/user/ApplicationsScreen';
 
 export const userScreensList = [
   {

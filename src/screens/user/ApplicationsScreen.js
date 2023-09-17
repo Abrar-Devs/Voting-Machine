@@ -9,8 +9,8 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Card} from '@rneui/themed';
 
-import globalStyles from '../utils/styles/globalstyles';
-import {approveCandidateApplication} from '../actions/asyncActions';
+import globalStyles from '../../utils/styles/globalstyles';
+import {approveCandidateApplication} from '../../actions/asyncActions';
 
 const ApplicationsScreen = () => {
   const dispatch = useDispatch();
