@@ -9,7 +9,7 @@ const UserProfile = () => {
   console.log('in usrProfile', user);
   return (
     <View style={globalStyles.container}>
-      <View>
+      <Card>
         <Avatar
           rounded
           size="xlarge"
@@ -22,19 +22,28 @@ const UserProfile = () => {
             uri: user.profilePic,
           }}
         /> */}
-        <Text style={styles.username}>{user.name}</Text>
+        <Text style={[styles.username, globalStyles.txtColor()]}>
+          {user.name}
+        </Text>
         <Divider style={styles.divider} />
-        <Text style={styles.userInfo}>Email: {user.email}</Text>
-        <Text style={styles.userInfo}>Constitution: {user.constitution}</Text>
-        <Text style={styles.userInfo}>CNIC: {user.cnic}</Text>
-      </View>
+        <Text style={styles.userInfo}>
+          <Text style={globalStyles.label}>Email:</Text> {user.email}
+        </Text>
+        <Text style={styles.userInfo}>
+          <Text style={globalStyles.label}>Constitution:</Text>{' '}
+          {user.constitution}
+        </Text>
+        <Text style={styles.userInfo}>
+          <Text style={globalStyles.label}>CNIC:</Text> {user.cnic}
+        </Text>
+      </Card>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    // padding: 20,
+    // height: 300,
   },
   avatarContainer: {
     alignSelf: 'center',

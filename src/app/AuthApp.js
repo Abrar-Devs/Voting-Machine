@@ -20,7 +20,7 @@ const AuthApp = () => {
     dispatch(checkSession());
     dispatch(getAllConstitutions());
   }, []);
-  console.log('deeds');
+  console.log('deedsa');
 
   if (loading) return <LoadingScreen />;
   if (currentUser) return <Dashboard />;

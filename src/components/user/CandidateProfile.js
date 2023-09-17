@@ -16,9 +16,15 @@ const CandidateProfile = () => {
           source={{uri: candidate.partySymbol}}
           containerStyle={styles.avatarContainer}
         />
-        <Text style={styles.username}>Party Name: {candidate.partyName}</Text>
-        <Text style={styles.username}>
-          Approved: {candidate.approved ? 'Yes' : 'Not'}
+
+        <Text style={[styles.userInfo, globalStyles.spacings({mrgnTop: 15})]}>
+          <Text style={globalStyles.label}>Party Name: </Text>
+          {candidate.partyName}
+        </Text>
+
+        <Text style={[styles.userInfo]}>
+          <Text style={globalStyles.label}>Approved: </Text>
+          {candidate.approved ? 'Yes' : 'Not'}
         </Text>
       </Card>
     </View>
