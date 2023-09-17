@@ -1,9 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View, Text} from 'react-native';
+import globalStyles from '../../utils/styles/globalstyles';
 
-const LoadingIndicator = () => (
-  <View style={[styles.container, styles.horizontal]}>
-    <ActivityIndicator size="large" />
+const LoadingIndicator = ({message = 'Loading...'}) => (
+  <View style={[globalStyles.container]}>
+    <Text style={globalStyles.label}>{message}</Text>
+    <ActivityIndicator size="large" color={'#007acc'} />
   </View>
 );
 

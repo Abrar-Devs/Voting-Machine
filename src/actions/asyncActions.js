@@ -4,7 +4,13 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
-import {collection, addDoc, updateDoc, doc} from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 import {db, auth, storage} from '../config/firebase';
 import {getAllDocs, getDocByKey, getDocsByKey} from '../utils/helpers';
@@ -155,6 +161,65 @@ export const getCandidateProfile = createAsyncThunk(
         auth.currentUser.email,
       );
       return candidProfile;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const createElection = createAsyncThunk(
+  'user/createElection',
+  async (electionObj, {getState}) => {
+    try {
+      const state = getState();
+      console.log('in firebase createElection');
+
+      const collectionRef = collection(db, 'elections');
+
+      const newElecRef = await addDoc(collectionRef, electionObj);
+      console.log('election added: ', newElecRef.id);
+
+      const newElections = [
+        ...state.elections,
+        {...electionObj, id: newElecRef.id},
+      ];
+      return newElections;
+    } catch (err) {
+      console.error(err);
+    }
+  },
+);
+
+export const getAllElections = createAsyncThunk(
+  'user/getAllElections',
+  async () => {
+    try {
+      const elections = await getAllDocs('elections');
+      console.log('In get allElections: ', elections);
+      const filteredData = elections.map(item => {
+        return {
+          ...item,
+          startDate: item.startDate.toDate(),
+          endDate: item.endDate.toDate(),
+        };
+      });
+      return filteredData;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const deleteElection = createAsyncThunk(
+  'user/deleteElection',
+  async (id, {getState}) => {
+    try {
+      const state = getState();
+      const electionRef = doc(db, 'elections', id);
+      await deleteDoc(electionRef);
+
+      const electionsLeft = state.elections.filter(item => item.id != id);
+      return electionsLeft;
     } catch (error) {
       console.log(error.message);
     }

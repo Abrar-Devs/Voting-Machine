@@ -7,6 +7,9 @@ const globalStyles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
   },
+  flexGap: g => ({
+    gap: g,
+  }),
   text: {
     fontSize: 16,
     color: 'black',
@@ -16,6 +19,9 @@ const globalStyles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: 'skyblue',
   },
+  txtColor: (clr = '#007acc') => ({
+    color: clr,
+  }),
   boldText: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -48,6 +54,31 @@ const globalStyles = StyleSheet.create({
     color: 'red',
     width: '80%',
     textAlign: 'center',
+  },
+  spacings: ({
+    mrgnVrtcl = 'auto',
+    pdngVrtcl = 'auto',
+    mrgnHztl = 'auto',
+    pdngHztl = 'auto',
+    mrgnTop = 'auto',
+  }) => ({
+    marginVertical: mrgnVrtcl,
+    marginHorizontal: mrgnHztl,
+    paddingVertical: pdngVrtcl,
+    paddingHorizontal: pdngHztl,
+    marginTop: mrgnTop,
+  }),
+  dimensions: ({width, height = 'auto'}) => ({
+    width: width,
+    height: height,
+  }),
+  cardView: {
+    padding: 30,
+    gap: 5,
+    borderRadius: 10,
+    borderColor: '#007acc',
+    borderWidth: 1,
+    width: '80%',
   },
 });
 

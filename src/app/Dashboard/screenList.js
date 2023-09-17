@@ -2,6 +2,7 @@ import UserProfileScreen from '../../screens/UserProfileScreen';
 import ElectionsScreen from '../../screens/ElectionsScreen';
 import CandidateProfileScreen from '../../screens/CandidateProfileScreen';
 import ApplicationsScreen from '../../screens/ApplicationsScreen';
+import NewElectionScreen from '../../screens/NewElectionScreen';
 
 export const userScreensList = [
   {
@@ -14,17 +15,22 @@ export const userScreensList = [
     name: 'Candidate Profile',
     comp: CandidateProfileScreen,
   },
-  {
-    key: 3,
-    name: 'Elections',
-    comp: ElectionsScreen,
-  },
 ];
 
 export const adminScreenList = [
   ...userScreensList,
   {
+    key: 3,
+    name: 'All Elections',
+    comp: ElectionsScreen,
+  },
+  {
     key: 4,
+    name: 'New Election',
+    comp: NewElectionScreen,
+  },
+  {
+    key: 5,
     name: 'Applications',
     comp: ApplicationsScreen,
   },

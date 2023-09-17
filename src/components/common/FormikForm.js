@@ -24,6 +24,7 @@ const FormikForm = ({
   constitutions,
   btnText,
   imgText,
+  children,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -94,6 +95,8 @@ const FormikForm = ({
               </View>
             )}
 
+            {children}
+
             <TouchableOpacity
               style={[globalStyles.btn, styles.btn]}
               onPress={formikProps.handleSubmit}
@@ -110,8 +113,7 @@ const FormikForm = ({
 const styles = StyleSheet.create({
   container: {
     gap: 10,
-    marginTop: 30,
-    paddingBottom: 20,
+    paddingBottom: 30,
   },
   btn: {
     marginTop: 20,

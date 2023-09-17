@@ -33,3 +33,10 @@ export const applicationFormSchema = Yup.object().shape({
     .max(15, 'Party Name must not exceed 15 characters')
     .trim(),
 });
+
+export const newElectionSchema = Yup.object().shape({
+  electionName: Yup.string()
+    .required('Election Name is required')
+    .min(5, 'Election Name must be at least 5 characters long')
+    .trim(),
+});

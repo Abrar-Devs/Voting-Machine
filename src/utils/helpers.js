@@ -86,3 +86,15 @@ export const getDocsByKey = async (collectionName, key, value) => {
     console.log('in getDoc', error);
   }
 };
+
+export const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+export const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+});

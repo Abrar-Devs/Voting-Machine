@@ -9,6 +9,9 @@ import {
   getCandidateApplications,
   getCandidateProfile,
   approveCandidateApplication,
+  createElection,
+  getAllElections,
+  deleteElection,
 } from '../../actions/asyncActions';
 
 const initialState = {
@@ -18,6 +21,11 @@ const initialState = {
   constitutions: [],
   candidate: null,
   applications: [],
+  elections: [],
+  model: {
+    loading: false,
+    message: '',
+  },
 };
 
 export const userSlice = createSlice({
@@ -63,6 +71,31 @@ export const userSlice = createSlice({
       })
       .addCase(approveCandidateApplication.fulfilled, (state, action) => {
         state.applications = action.payload ?? [];
+      })
+
+      .addCase(createElection.pending, (state, action) => {
+        state.model = {loading: true, message: 'Creating Election'};
+      })
+      .addCase(createElection.fulfilled, (state, action) => {
+        state.model = {
+          loading: false,
+          message: 'Election Created Successfully',
+        };
+        state.elections = action.payload;
+      })
+
+      .addCase(getAllElections.fulfilled, (state, action) => {
+        state.elections = action.payload ?? [];
+      })
+      .addCase(deleteElection.pending, (state, action) => {
+        state.model = {loading: true, message: 'Deleting Election'};
+      })
+      .addCase(deleteElection.fulfilled, (state, action) => {
+        state.elections = action.payload ?? [];
+        state.model = {
+          loading: false,
+          message: 'Election Deleted Successfully',
+        };
       });
   },
 });
