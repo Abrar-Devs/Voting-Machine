@@ -11,6 +11,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  getDocs,
 } from 'firebase/firestore';
 
 import {db, auth, storage} from '../config/firebase';
@@ -86,10 +87,6 @@ export const firebaseRegister = createAsyncThunk(
         values.password,
       );
       const user = userCredential.user;
-
-      // const filesFolderRef = ref(storage, `profilePics/${user.uid}`);
-      // await uploadBytes(filesFolderRef, values.profilePic.uri);
-      // const downloadURL = await getDownloadURL(filesFolderRef);
 
       console.log('in register');
       const downloadURL = await uploadImage(values.profilePic.uri);
@@ -320,6 +317,27 @@ export const getUserVotes = createAsyncThunk(
       );
       console.log('getvotesCasted result:', votesCasted);
       return votesCasted;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const getAllCastedVotes = createAsyncThunk(
+  'user/getAllVotes',
+  async () => {
+    try {
+      console.log('in getAllVotes ----------');
+
+      const collectionRef = collection(db, 'votesCasted');
+      const votesCasted = await getDocs(collectionRef);
+
+      const filteredData = votesCasted.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      console.log('getAllVotes result:', filteredData);
+      return filteredData;
     } catch (error) {
       console.log(error.message);
     }

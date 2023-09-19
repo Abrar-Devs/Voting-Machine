@@ -5,20 +5,31 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Card} from '@rneui/themed';
 
 import globalStyles from '../../utils/styles/globalstyles';
-import {approveCandidateApplication} from '../../actions/asyncActions';
+import {
+  approveCandidateApplication,
+  getCandidateApplications,
+} from '../../actions/asyncActions';
+import LoadingIndicator from '../../components/common/LoadingIndicator';
 
 const ApplicationsScreen = () => {
   const dispatch = useDispatch();
   const applications = useSelector(state => state.applications);
-  console.log('applications screen: ', applications);
+  const {loading, message} = useSelector(state => state.model);
+
   const approveApplication = id => {
     dispatch(approveCandidateApplication(id));
   };
+
+  useEffect(() => {
+    dispatch(getCandidateApplications());
+  }, []);
+
+  if (loading) return <LoadingIndicator message={message} />;
 
   if (applications.length === 0)
     return (
@@ -26,6 +37,7 @@ const ApplicationsScreen = () => {
         <Text style={globalStyles.boldText}>No applications at the moment</Text>
       </View>
     );
+
   return (
     <ScrollView>
       <View style={styles.container}>

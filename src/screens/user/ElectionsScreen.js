@@ -1,9 +1,9 @@
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import globalStyles from '../../utils/styles/globalstyles';
-import {deleteElection} from '../../actions/asyncActions';
+import {deleteElection, getAllElections} from '../../actions/asyncActions';
 import LoadingIndicator from '../../components/common/LoadingIndicator';
 import ElectionCard from '../../components/polling/ElectionCard';
 
@@ -16,6 +16,10 @@ const ElectionsScreen = () => {
   const handleDelete = id => {
     dispatch(deleteElection(id));
   };
+
+  useEffect(() => {
+    dispatch(getAllElections());
+  }, []);
 
   if (loading) {
     return <LoadingIndicator message={message} />;

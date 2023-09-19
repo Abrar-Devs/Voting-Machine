@@ -1,12 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Avatar, Card} from 'react-native-elements';
 import {useSelector} from 'react-redux';
+
 import globalStyles from '../../utils/styles/globalstyles';
 
 const CandidateProfile = () => {
   const candidate = useSelector(state => state.candidate);
-  console.log('in candidateProfile', candidate);
+
   return (
     <View style={styles.cardContainer}>
       <Card>

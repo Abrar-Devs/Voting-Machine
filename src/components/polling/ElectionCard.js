@@ -27,7 +27,7 @@ const ElectionCard = ({
         <Text style={globalStyles.label}>End Date: </Text>
         {dateFormatter.format(endDate)}
       </Text>
-      <Text style={globalStyles.text}>{timeFormatter.format(startDate)}</Text>
+      <Text style={globalStyles.text}>{timeFormatter.format(endDate)}</Text>
       <TouchableOpacity
         disabled={disableBtn}
         style={[

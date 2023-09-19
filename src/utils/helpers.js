@@ -1,18 +1,9 @@
 import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {db, auth} from '../config/firebase';
-import {
-  getDocs,
-  collection,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  doc,
-  query,
-  where,
-} from 'firebase/firestore';
-
+import {getDocs, collection, query, where} from 'firebase/firestore';
 import {getStorage, ref, getDownloadURL, uploadBytes} from 'firebase/storage';
+
 const storage = getStorage();
 
 export const openImagePicker = async () => {
@@ -160,7 +151,6 @@ export const confirmationBox = async () => {
         text: 'Confirm',
         onPress: () => resolve(true),
       },
-      //{cancelable: false}, //controls whether the user can dismiss the alert by tapping outside of it.
     ]);
   });
 };
@@ -177,4 +167,28 @@ export const showAlert = msg => {
     ],
     {cancelable: true},
   );
+};
+
+export const getVoteCount = (votesCasted, electionId, candidateList) => {
+  console.log('\n\n allCastedVotes: ', votesCasted);
+  const electionVotes = votesCasted.filter(
+    vote => vote.electionId === electionId,
+  );
+
+  const voteCount = {};
+
+  electionVotes.forEach(vote => {
+    const {candidateId} = vote;
+
+    const matchingCandidate = candidateList.find(
+      candidate => candidate.id === candidateId,
+    );
+
+    if (matchingCandidate) {
+      const {id, user} = matchingCandidate;
+      voteCount[id] = {id, user, count: (voteCount[id]?.count || 0) + 1};
+    }
+  });
+
+  return voteCount;
 };

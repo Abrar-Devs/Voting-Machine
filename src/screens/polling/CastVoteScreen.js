@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Card} from 'react-native-elements';
 import globalStyles from '../../utils/styles/globalstyles';
 import {castVote} from '../../actions/asyncActions';
-import LoadingIndicator from '../../components/common/LoadingIndicator';
 import {confirmationBox} from '../../utils/helpers';
 
 LogBox.ignoreLogs([
@@ -14,7 +13,6 @@ LogBox.ignoreLogs([
 const CastVoteScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const candidates = useSelector(state => state.constitutionCandidates);
-  const {loading, message} = useSelector(state => state.model);
 
   const selectedElection = route.params.election;
 

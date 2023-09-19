@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {getOngoingElections, showAlert} from '../../utils/helpers';
 import ScreenComponent from '../../components/polling/ScreenComponent';

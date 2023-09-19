@@ -20,7 +20,7 @@ function PollingScreen() {
     console.log('in polling screen useeffect: ');
     dispatch(getConstitutionCandidates());
     dispatch(getAllElections());
-  });
+  }, []);
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>

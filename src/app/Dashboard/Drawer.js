@@ -9,28 +9,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {userScreensList, adminScreenList} from './screenList';
-import {
-  getCandidateApplications,
-  getCandidateProfile,
-  getAllElections,
-  firebaseLogout,
-} from '../../actions/asyncActions';
+import {firebaseLogout} from '../../actions/asyncActions';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const dispatch = useDispatch();
   const isAdmin = useSelector(state => state.isAdmin);
 
   const screenList = isAdmin ? adminScreenList : userScreensList;
-
-  useEffect(() => {
-    if (isAdmin) {
-      dispatch(getCandidateApplications());
-    }
-    dispatch(getCandidateProfile());
-    dispatch(getAllElections());
-  }, []);
 
   return (
     <NavigationContainer>

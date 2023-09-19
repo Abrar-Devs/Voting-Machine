@@ -15,6 +15,7 @@ import {
   getConstitutionCandidates,
   castVote,
   getUserVotes,
+  getAllCastedVotes,
   firebaseLogout,
 } from '../../actions/asyncActions';
 
@@ -28,6 +29,7 @@ const initialState = {
   elections: [],
   constitutionCandidates: [],
   votesCasted: [],
+  allCastedVotes: [],
   model: {
     loading: false,
     message: '',
@@ -70,17 +72,36 @@ export const userSlice = createSlice({
         state.constitutions = action.payload;
       })
 
+      .addCase(getCandidateProfile.pending, (state, action) => {
+        state.model = setModel(true, 'Fetching Candidate Profile');
+      })
       .addCase(getCandidateProfile.fulfilled, (state, action) => {
+        state.model = setModel();
         state.candidate = action.payload;
       })
 
+      .addCase(submitCandidateApplication.pending, (state, action) => {
+        state.model = setModel(true, 'Submitting Application');
+      })
       .addCase(submitCandidateApplication.fulfilled, (state, action) => {
+        state.model = setModel();
         state.candidate = action.payload;
       })
+
+      .addCase(getCandidateApplications.pending, (state, action) => {
+        state.model = setModel(true, 'Fetching Applications');
+      })
       .addCase(getCandidateApplications.fulfilled, (state, action) => {
+        state.model = setModel();
+        state.applications = action.payload ?? [];
+      })
+
+      .addCase(approveCandidateApplication.pending, (state, action) => {
+        state.model = setModel(true, 'Approving Application');
         state.applications = action.payload ?? [];
       })
       .addCase(approveCandidateApplication.fulfilled, (state, action) => {
+        state.model = setModel();
         state.applications = action.payload ?? [];
       })
 
@@ -93,13 +114,22 @@ export const userSlice = createSlice({
       })
 
       //polling
+      .addCase(getConstitutionCandidates.pending, (state, action) => {
+        state.model = setModel(true, 'Fetching Constitution Candidates');
+      })
       .addCase(getConstitutionCandidates.fulfilled, (state, action) => {
+        state.model = setModel();
         state.constitutionCandidates = action.payload ?? [];
       })
 
+      .addCase(getAllElections.pending, (state, action) => {
+        state.model = setModel(true, 'Fetching Elections');
+      })
       .addCase(getAllElections.fulfilled, (state, action) => {
+        state.model = setModel();
         state.elections = action.payload ?? [];
       })
+
       .addCase(deleteElection.pending, (state, action) => {
         state.model = setModel(true, 'Deleting Election');
       })
@@ -122,6 +152,14 @@ export const userSlice = createSlice({
       .addCase(getUserVotes.fulfilled, (state, action) => {
         state.model = setModel();
         state.votesCasted = action.payload ?? [];
+      })
+
+      .addCase(getAllCastedVotes.pending, (state, action) => {
+        state.model = setModel(true, 'Fetching votes casted data....');
+      })
+      .addCase(getAllCastedVotes.fulfilled, (state, action) => {
+        state.model = setModel();
+        state.allCastedVotes = action.payload ?? [];
       })
 
       //logout
