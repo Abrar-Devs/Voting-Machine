@@ -1,5 +1,10 @@
 import React, {useEffect} from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {Button} from 'react-native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -8,6 +13,7 @@ import {
   getCandidateApplications,
   getCandidateProfile,
   getAllElections,
+  firebaseLogout,
 } from '../../actions/asyncActions';
 
 const Drawer = createDrawerNavigator();
@@ -17,19 +23,19 @@ export default function App() {
   const isAdmin = useSelector(state => state.isAdmin);
 
   const screenList = isAdmin ? adminScreenList : userScreensList;
-  console.log('in drawerrrr');
 
   useEffect(() => {
     if (isAdmin) {
       dispatch(getCandidateApplications());
-      dispatch(getAllElections());
     }
     dispatch(getCandidateProfile());
+    dispatch(getAllElections());
   }, []);
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        drawerContent={props => <CustomDrawerContent {...props} />}>
         {screenList.map(item => (
           <Drawer.Screen
             key={item.key}
@@ -41,3 +47,19 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const CustomDrawerContent = props => {
+  const dispatch = useDispatch();
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <Button
+        title="Logout"
+        onPress={() => {
+          props.navigation.closeDrawer();
+          dispatch(firebaseLogout());
+        }}
+      />
+    </DrawerContentScrollView>
+  );
+};

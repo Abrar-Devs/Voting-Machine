@@ -16,6 +16,7 @@ const CandidateApplication = () => {
   const handleSubmit = async ({partyName, profilePic}) => {
     const applicationObj = {
       user: currentUser.email,
+      constitution: currentUser.constitution,
       partyName,
       partySymbol: profilePic,
       approved: false,

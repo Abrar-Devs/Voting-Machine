@@ -10,6 +10,7 @@ const ElectionCard = ({
   startDate,
   endDate,
   btnText,
+  disableBtn = false,
   handleBtnClick,
 }) => {
   return (
@@ -28,9 +29,11 @@ const ElectionCard = ({
       </Text>
       <Text style={globalStyles.text}>{timeFormatter.format(startDate)}</Text>
       <TouchableOpacity
+        disabled={disableBtn}
         style={[
           globalStyles.btn,
           globalStyles.spacings({mrgnTop: 10, pdngHztl: 20}),
+          disableBtn ? globalStyles.disabledBtn : {},
         ]}
         onPress={() => handleBtnClick(id)}>
         <Text style={globalStyles.text}> {btnText}</Text>

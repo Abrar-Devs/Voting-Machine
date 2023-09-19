@@ -8,7 +8,7 @@ const CandidateProfile = () => {
   const candidate = useSelector(state => state.candidate);
   console.log('in candidateProfile', candidate);
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.cardContainer}>
       <Card>
         <Avatar
           rounded
@@ -32,8 +32,9 @@ const CandidateProfile = () => {
 };
 
 const styles = StyleSheet.create({
-  card: {
-    // padding: 20,
+  cardContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   avatarContainer: {
     alignSelf: 'center',

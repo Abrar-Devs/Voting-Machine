@@ -8,7 +8,7 @@ const UserProfile = () => {
   const user = useSelector(state => state.user);
   console.log('in usrProfile', user);
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.cardContainer}>
       <Card>
         <Avatar
           rounded
@@ -16,12 +16,6 @@ const UserProfile = () => {
           source={{uri: user.profilePic}}
           containerStyle={styles.avatarContainer}
         />
-        {/* <Image
-          style={styles.img}
-          source={{
-            uri: user.profilePic,
-          }}
-        /> */}
         <Text style={[styles.username, globalStyles.txtColor()]}>
           {user.name}
         </Text>
@@ -42,8 +36,9 @@ const UserProfile = () => {
 };
 
 const styles = StyleSheet.create({
-  card: {
-    // height: 300,
+  cardContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   avatarContainer: {
     alignSelf: 'center',

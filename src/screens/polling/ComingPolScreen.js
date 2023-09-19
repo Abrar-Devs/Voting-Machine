@@ -1,11 +1,16 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+
+import {getFutureElections} from '../../utils/helpers';
+import ScreenComponent from '../../components/polling/ScreenComponent';
 
 const ComingPolScreen = () => {
   return (
-    <View>
-      <Text>ComingPolScreen</Text>
-    </View>
+    <ScreenComponent
+      title={'Coming Up Elections'}
+      filterElections={getFutureElections}
+      btnTitle={'Coming Soon...'}
+      btnHandler={null}
+    />
   );
 };
 

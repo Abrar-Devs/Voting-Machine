@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import {
@@ -13,7 +14,18 @@ import {
 } from 'firebase/firestore';
 
 import {db, auth, storage} from '../config/firebase';
-import {getAllDocs, getDocByKey, getDocsByKey} from '../utils/helpers';
+import {
+  getAllDocs,
+  getDocByKey,
+  getDocsByKey,
+  uploadImage,
+} from '../utils/helpers';
+
+export const initApp = createAsyncThunk('user/initApp', async () => {
+  console.log('init app before');
+  if (!auth.currentUser) return;
+  console.log('init app after');
+});
 
 export const firebaseLogin = createAsyncThunk(
   'user/login',
@@ -25,18 +37,29 @@ export const firebaseLogin = createAsyncThunk(
         password,
       );
 
-      console.log('user credentials:', userCredential.user.uid);
-      const userDetails = await getDocByKey('users', 'email', email);
+      let userDetails = await getDocByKey('users', 'email', email);
+      userDetails = {...userDetails, id: userCredential.user.uid};
       console.log('User details', userDetails);
       return userDetails;
     } catch (error) {
       console.log(error.message);
+      return null;
     }
   },
 );
 
+export const firebaseLogout = createAsyncThunk('user/logout', async () => {
+  try {
+    console.log('siging out....');
+    await signOut(auth);
+    console.log('signedout....');
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 export const checkSession = createAsyncThunk('user/checkSession', async () => {
-  console.log('before check session');
+  console.log('before check session', auth);
   if (!auth.currentUser) return;
   console.log('after check session');
   try {
@@ -64,9 +87,12 @@ export const firebaseRegister = createAsyncThunk(
       );
       const user = userCredential.user;
 
-      const filesFolderRef = ref(storage, `profilePics/${user.uid}`);
-      await uploadBytes(filesFolderRef, values.profilePic.uri);
-      const downloadURL = await getDownloadURL(filesFolderRef);
+      // const filesFolderRef = ref(storage, `profilePics/${user.uid}`);
+      // await uploadBytes(filesFolderRef, values.profilePic.uri);
+      // const downloadURL = await getDownloadURL(filesFolderRef);
+
+      console.log('in register');
+      const downloadURL = await uploadImage(values.profilePic.uri);
 
       console.log('before adding user to collection');
       const usersCollectionRef = collection(db, 'users');
@@ -76,7 +102,6 @@ export const firebaseRegister = createAsyncThunk(
 
       const newUser = {...values, profilePic: downloadURL};
       console.log('user created successfully', newUser);
-      auth.currentUser = newUser;
       return newUser;
     } catch (err) {
       console.error(err);
@@ -88,6 +113,7 @@ export const getAllConstitutions = createAsyncThunk(
   'user/getAllConstitutions',
   async () => {
     try {
+      console.log('in getallconstitions');
       const constitutions = await getAllDocs('constitutions');
       return constitutions;
     } catch (error) {
@@ -220,6 +246,80 @@ export const deleteElection = createAsyncThunk(
 
       const electionsLeft = state.elections.filter(item => item.id != id);
       return electionsLeft;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const getConstitutionCandidates = createAsyncThunk(
+  'user/getConstitutionCandidates',
+  async (_, {getState}) => {
+    try {
+      console.log('in getConstitutionCandidates ----------');
+      const state = getState();
+
+      const collectionRef = collection(db, 'candidates');
+
+      const candidates = await getDocsByKey(
+        'candidates',
+        'constitution',
+        state.user.constitution,
+      );
+      const filteredData = candidates.filter(c => c.approved == true);
+      console.log('getConstitutionCandidates: ', filteredData);
+      return filteredData;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const castVote = createAsyncThunk(
+  'user/castVote',
+  async ({cid, eid}, {getState}) => {
+    try {
+      console.log('in castVote ----------');
+      const state = getState();
+
+      const collectionRef = collection(db, 'votesCasted');
+
+      console.log('in castvote user is: ', state.user);
+
+      const voteObj = {
+        user: state.user.email,
+        electionId: eid,
+        candidateId: cid,
+      };
+
+      const newVoteRef = await addDoc(collectionRef, voteObj);
+      console.log('votes casted: ', voteObj);
+
+      const newVoteCasted = [
+        ...state.votesCasted,
+        {...voteObj, id: newVoteRef.id},
+      ];
+      return newVoteCasted;
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+);
+
+export const getUserVotes = createAsyncThunk(
+  'user/getUserVotes',
+  async (_, {getState}) => {
+    try {
+      console.log('in getUserVotes ----------');
+      const state = getState();
+
+      const votesCasted = await getDocsByKey(
+        'votesCasted',
+        'user',
+        state.user.email,
+      );
+      console.log('getvotesCasted result:', votesCasted);
+      return votesCasted;
     } catch (error) {
       console.log(error.message);
     }

@@ -50,6 +50,9 @@ const globalStyles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  disabledBtn: {
+    backgroundColor: 'lightgray',
+  },
   error: {
     color: 'red',
     width: '80%',

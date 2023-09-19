@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {db, auth} from '../config/firebase';
 import {
@@ -10,6 +11,9 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+
+import {getStorage, ref, getDownloadURL, uploadBytes} from 'firebase/storage';
+const storage = getStorage();
 
 export const openImagePicker = async () => {
   const options = {
@@ -32,6 +36,32 @@ export const openImagePicker = async () => {
         resolve({uri: imageUri});
       }
     });
+  });
+};
+
+export const uploadImage = async image => {
+  if (!image) return null;
+
+  const fileBlob = await getBlobFroUri(image);
+  const imgName = 'img-' + new Date().getTime();
+  const storageRef = ref(storage, `images/${imgName}.jpg`);
+
+  const snapshot = await uploadBytes(storageRef, fileBlob);
+  return getDownloadURL(snapshot.ref);
+};
+
+const getBlobFroUri = uri => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      reject(new TypeError('Network request failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
   });
 };
 
@@ -98,3 +128,53 @@ export const timeFormatter = new Intl.DateTimeFormat('en-US', {
   minute: 'numeric',
   second: 'numeric',
 });
+
+export const getOngoingElections = electionsArray => {
+  const currentDate = new Date();
+  const result = electionsArray.filter(
+    election =>
+      currentDate >= election.startDate && currentDate <= election.endDate,
+  );
+  console.log('on going elections: ', result);
+  return result;
+};
+
+export const getEndedElections = electionsArray => {
+  const currentDate = new Date();
+  return electionsArray.filter(election => currentDate > election.endDate);
+};
+
+export const getFutureElections = electionsArray => {
+  const currentDate = new Date();
+  return electionsArray.filter(election => currentDate < election.startDate);
+};
+
+export const confirmationBox = async () => {
+  return new Promise(resolve => {
+    Alert.alert('Confirmation', 'Are you sure you want to proceed', [
+      {
+        text: 'Cancel',
+        onPress: () => resolve(false),
+      },
+      {
+        text: 'Confirm',
+        onPress: () => resolve(true),
+      },
+      //{cancelable: false}, //controls whether the user can dismiss the alert by tapping outside of it.
+    ]);
+  });
+};
+
+export const showAlert = msg => {
+  Alert.alert(
+    'Alert',
+    msg,
+    [
+      {
+        text: 'OK',
+        onPress: () => {},
+      },
+    ],
+    {cancelable: true},
+  );
+};
