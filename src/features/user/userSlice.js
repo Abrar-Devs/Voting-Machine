@@ -51,9 +51,10 @@ export const userSlice = createSlice({
       .addCase(firebaseLogin.fulfilled, (state, action) => {
         state.user = action.payload
         state.loading = false
-        if (action.payload == null) {
-          state.error = { message: 'Email or password is incorrect', showError: true }
-        } else if (state.user.email == 'admin@gmail.com') state.isAdmin = true
+        if (action.payload == null) state.error = setError('Email or password is incorrect', true)
+        else state.error = setError()
+
+        if (state.user?.email == 'admin@gmail.com') state.isAdmin = true
       })
       .addCase(firebaseLogin.rejected, (state, action) => {
         state.user = null
@@ -66,9 +67,8 @@ export const userSlice = createSlice({
       .addCase(firebaseRegister.fulfilled, (state, action) => {
         state.user = action.payload
         state.loading = false
-        if (action.payload == null) {
-          state.error = { message: 'Email is already in use..', showError: true }
-        }
+        if (action.payload == null) state.error = setError('Email is already in use..', true)
+        else state.error = setError()
       })
 
       .addCase(checkSession.fulfilled, (state, action) => {
@@ -192,6 +192,11 @@ export const userSlice = createSlice({
 const setModel = (loading = false, message = '') => ({
   loading,
   message,
+})
+
+const setError = (message = '', showError = false) => ({
+  message,
+  showError,
 })
 
 export default userSlice.reducer
