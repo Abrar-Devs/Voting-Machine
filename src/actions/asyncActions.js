@@ -17,7 +17,7 @@ export const firebaseLogin = createAsyncThunk('user/login', async ({ email, pass
 
     return { ...userDetails, id: userCredential.user.uid }
   } catch (error) {
-    console.error(error)
+    console.log(error)
     return null
   }
 })
@@ -26,7 +26,7 @@ export const firebaseLogout = createAsyncThunk('user/logout', async () => {
   try {
     await signOut(auth)
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -36,7 +36,7 @@ export const checkSession = createAsyncThunk('user/checkSession', async () => {
     const userDetails = await getDocByKey('users', 'email', auth.currentUser?.email)
     return userDetails
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -53,7 +53,7 @@ export const firebaseRegister = createAsyncThunk('user/register', async values =
     const newUser = { ...values, profilePic: downloadURL }
     return newUser
   } catch (err) {
-    console.error(error)
+    console.log(error)
     return null
   }
 })
@@ -63,7 +63,7 @@ export const getAllConstitutions = createAsyncThunk('user/getAllConstitutions', 
     const constitutions = await getAllDocs('constitutions')
     return constitutions
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -80,7 +80,7 @@ export const submitCandidateApplication = createAsyncThunk(
 
       return applicationObj
     } catch (err) {
-      console.error(error)
+      console.log(error)
     }
   }
 )
@@ -92,7 +92,7 @@ export const getCandidateApplications = createAsyncThunk(
       const applications = await getDocsByKey('candidates', 'approved', false)
       return applications
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 )
@@ -109,7 +109,7 @@ export const approveCandidateApplication = createAsyncThunk(
       await updateDoc(applicationRef, { approved: true })
       return applicationsLeft
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 )
@@ -119,7 +119,7 @@ export const getCandidateProfile = createAsyncThunk('user/getCandidateProfile', 
     const candidProfile = await getDocByKey('candidates', 'user', auth.currentUser.email)
     return candidProfile
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -136,7 +136,7 @@ export const createElection = createAsyncThunk(
       const newElections = [...state.elections, { ...electionObj, id: newElecRef.id }]
       return newElections
     } catch (err) {
-      console.error(error)
+      console.log(error)
     }
   }
 )
@@ -153,7 +153,7 @@ export const getAllElections = createAsyncThunk('user/getAllElections', async ()
     })
     return filteredData
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -166,7 +166,7 @@ export const deleteElection = createAsyncThunk('user/deleteElection', async (id,
     const electionsLeft = state.elections.filter(item => item.id != id)
     return electionsLeft
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -182,7 +182,7 @@ export const getConstitutionCandidates = createAsyncThunk(
       const filteredData = candidates.filter(c => c.approved == true)
       return filteredData
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 )
@@ -204,7 +204,7 @@ export const castVote = createAsyncThunk('user/castVote', async ({ cid, eid }, {
     const newVoteCasted = [...state.votesCasted, { ...voteObj, id: newVoteRef.id }]
     return newVoteCasted
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -215,7 +215,7 @@ export const getUserVotes = createAsyncThunk('user/getUserVotes', async (_, { ge
     const votesCasted = await getDocsByKey('votesCasted', 'user', state.user.email)
     return votesCasted
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })
 
@@ -230,6 +230,6 @@ export const getAllCastedVotes = createAsyncThunk('user/getAllVotes', async () =
     }))
     return filteredData
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 })

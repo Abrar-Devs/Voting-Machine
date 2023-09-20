@@ -18,10 +18,8 @@ export const openImagePicker = async () => {
   return new Promise((resolve, reject) => {
     launchImageLibrary(options, response => {
       if (response.didCancel) {
-        console.log('User cancelled image picker')
         resolve(null)
       } else if (response.error) {
-        console.log('Image picker error: ', response.error)
         reject(response.error)
       } else {
         let imageUri = response.uri || response.assets?.[0]?.uri
@@ -76,15 +74,12 @@ export const getDocByKey = async (collectionName, key, value) => {
     const querySnapshot = await getDocs(q)
 
     if (querySnapshot.empty) {
-      console.log('did not find anything..')
       return null
     }
 
     const result = querySnapshot.docs[0]
     return result.data()
-  } catch (error) {
-    console.log('in getDoc', error)
-  }
+  } catch (error) {}
 }
 
 export const getDocsByKey = async (collectionName, key, value) => {
@@ -94,7 +89,6 @@ export const getDocsByKey = async (collectionName, key, value) => {
     const querySnapshot = await getDocs(q)
 
     if (querySnapshot.empty) {
-      console.log('did not find applications')
       return null
     }
 
@@ -102,11 +96,8 @@ export const getDocsByKey = async (collectionName, key, value) => {
       ...doc.data(),
       id: doc.id,
     }))
-    console.log('candidates applications: ', FileReader)
     return filteredData
-  } catch (error) {
-    console.log('in getDoc', error)
-  }
+  } catch (error) {}
 }
 
 export const dateFormatter = new Intl.DateTimeFormat('en-US', {
@@ -126,7 +117,6 @@ export const getOngoingElections = electionsArray => {
   const result = electionsArray.filter(
     election => currentDate >= election.startDate && currentDate <= election.endDate
   )
-  console.log('on going elections: ', result)
   return result
 }
 
@@ -170,7 +160,6 @@ export const showAlert = msg => {
 }
 
 export const getVoteCount = (votesCasted, electionId, candidateList) => {
-  console.log('\n\n allCastedVotes: ', votesCasted)
   const electionVotes = votesCasted.filter(vote => vote.electionId === electionId)
 
   const voteCount = {}

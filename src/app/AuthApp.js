@@ -30,10 +30,7 @@ const AuthApp = () => {
 
   if (loading) return <LoadingScreen />
   if (currentUser) return <Dashboard />
-  if (showError) {
-    toast.show(message, { placement: 'top', duration: 1000 })
-    return
-  }
+  if (showError) toast.show(message, { placement: 'top', duration: 1000 })
 
   return (
     <NavigationContainer>
