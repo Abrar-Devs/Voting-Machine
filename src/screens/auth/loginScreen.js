@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import Login from '../../components/auth/Login';
+import Login from '../../components/auth/Login'
 
-const LoginScreen = () => <Login />;
+const LoginScreen = () => <Login />
 
-export default LoginScreen;
+export default LoginScreen

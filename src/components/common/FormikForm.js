@@ -1,19 +1,12 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Image,
-} from 'react-native';
-import {Formik} from 'formik';
-import React, {useState} from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native'
+import { Formik } from 'formik'
+import React, { useState } from 'react'
 
-import globalStyles from '../../utils/styles/globalstyles';
-import {MyTextInput} from './MyTextInput';
-import {openImagePicker} from '../../utils/helpers';
-import Heading from './Heading';
-import DropdownPicker from './DropdownPicker';
+import globalStyles from '../../utils/styles/globalstyles'
+import { MyTextInput } from './MyTextInput'
+import { openImagePicker } from '../../utils/helpers'
+import Heading from './Heading'
+import DropdownPicker from './DropdownPicker'
 
 const FormikForm = ({
   title,
@@ -26,26 +19,29 @@ const FormikForm = ({
   imgText,
   children,
 }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null)
 
   const handleImgSelection = async () => {
     try {
-      const selectedImage = await openImagePicker();
-      if (selectedImage) setSelectedImage(selectedImage);
+      const selectedImage = await openImagePicker()
+      if (selectedImage) setSelectedImage(selectedImage)
     } catch (error) {
-      console.error('Image picker error: ', error);
+      console.error('Image picker error: ', error)
     }
-  };
+  }
+
+  const submit = values => {
+    if (showImgPicker && selectedImage == null) return
+    handleSubmit({ ...values, profilePic: selectedImage })
+  }
 
   return (
     <Formik
       initialValues={formValues}
       validationSchema={validationSchema}
-      onSubmit={values => {
-        if (showImgPicker && selectedImage == null) return;
-        handleSubmit({...values, profilePic: selectedImage});
-      }}
-      validateOnMount={true}>
+      onSubmit={values => submit(values)}
+      validateOnMount={true}
+    >
       {formikProps => (
         <ScrollView>
           <View style={[globalStyles.container, styles.container]}>
@@ -66,49 +62,40 @@ const FormikForm = ({
                     touched={formikProps.touched[value]}
                     error={formikProps.errors[value]}
                   />
-                );
+                )
             })}
-
             {constitutions && (
               <DropdownPicker
-                label="Your Constitution"
+                label='Your Constitution'
                 items={constitutions}
                 selectedValue={formikProps.values.constitution}
                 onValueChange={formikProps.handleChange('constitution')}
               />
             )}
-
             {showImgPicker && (
               <View>
-                {selectedImage && (
-                  <Image source={selectedImage} style={styles.formImg} />
-                )}
+                {selectedImage && <Image source={selectedImage} style={styles.formImg} />}
                 <TouchableOpacity onPress={handleImgSelection}>
-                  <Text
-                    style={[
-                      globalStyles.text(),
-                      {textDecorationLine: 'underline'},
-                    ]}>
+                  <Text style={[globalStyles.text(), { textDecorationLine: 'underline' }]}>
                     {imgText}
                   </Text>
                 </TouchableOpacity>
               </View>
             )}
-
             {children}
-
             <TouchableOpacity
               style={[globalStyles.btn, styles.btn]}
               onPress={formikProps.handleSubmit}
-              disabled={!formikProps.isValid}>
+              disabled={!formikProps.isValid}
+            >
               <Text>{btnText}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       )}
     </Formik>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -123,5 +110,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-});
-export default FormikForm;
+})
+
+export default FormikForm

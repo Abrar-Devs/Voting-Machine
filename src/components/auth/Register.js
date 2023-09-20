@@ -1,10 +1,9 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import FormikForm from '../common/FormikForm';
-import {registerFormSchema} from '../../utils/validation/yupValidations';
-
-import {useSelector, useDispatch} from 'react-redux';
-import {firebaseRegister} from '../../actions/asyncActions';
+import { registerFormSchema } from '../../utils/validation/yupValidations';
+import { firebaseRegister } from '../../actions/asyncActions';
 
 const formValues = {
   name: '',
@@ -24,7 +23,7 @@ const Register = () => {
 
   return (
     <FormikForm
-      title={'Register'}
+      title="Register"
       validationSchema={registerFormSchema}
       formValues={formValues}
       handleSubmit={handleSubmit}

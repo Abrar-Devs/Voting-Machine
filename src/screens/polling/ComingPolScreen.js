@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import {getFutureElections} from '../../utils/helpers';
-import ScreenComponent from '../../components/polling/ScreenComponent';
+import { getFutureElections } from '../../utils/helpers'
+import ScreenComponent from '../../components/polling/ScreenComponent'
 
 const ComingPolScreen = () => (
   <ScreenComponent
@@ -10,6 +10,6 @@ const ComingPolScreen = () => (
     btnTitle={'Coming Soon...'}
     btnHandler={null}
   />
-);
+)
 
-export default ComingPolScreen;
+export default ComingPolScreen

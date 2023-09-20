@@ -1,6 +1,7 @@
-import React from 'react';
-import Register from '../../components/auth/Register';
+import React from 'react'
 
-const RegisterScreen = () => <Register />;
+import Register from '../../components/auth/Register'
 
-export default RegisterScreen;
+const RegisterScreen = () => <Register />
+
+export default RegisterScreen

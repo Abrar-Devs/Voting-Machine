@@ -13,7 +13,7 @@ import {firebaseLogout} from '../../actions/asyncActions';
 
 const Drawer = createDrawerNavigator();
 
-export default function App() {
+const App = () => {
   const isAdmin = useSelector(state => state.isAdmin);
 
   const screenList = isAdmin ? adminScreenList : userScreensList;
@@ -22,30 +22,32 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator
         drawerContent={props => <CustomDrawerContent {...props} />}>
-        {screenList.map(item => (
+        {screenList.map(screen => (
           <Drawer.Screen
-            key={item.key}
-            name={item.name}
-            component={item.comp}
+            key={screen.key}
+            name={screen.name}
+            component={screen.comp}
           />
         ))}
       </Drawer.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 const CustomDrawerContent = props => {
   const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    props.navigation.closeDrawer();
+    dispatch(firebaseLogout());
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <Button
-        title="Logout"
-        onPress={() => {
-          props.navigation.closeDrawer();
-          dispatch(firebaseLogout());
-        }}
-      />
+      <Button title="Logout" onPress={handleLogout} />
     </DrawerContentScrollView>
   );
 };
+
+export default App;

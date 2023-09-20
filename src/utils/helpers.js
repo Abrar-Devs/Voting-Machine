@@ -1,11 +1,11 @@
-import {Alert} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {getDocs, collection, query, where} from 'firebase/firestore';
-import {getStorage, ref, getDownloadURL, uploadBytes} from 'firebase/storage';
+import { Alert } from 'react-native'
+import { launchImageLibrary } from 'react-native-image-picker'
+import { getDocs, collection, query, where } from 'firebase/firestore'
+import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage'
 
-import {db} from '../config/firebase';
+import { db } from '../config/firebase'
 
-const storage = getStorage();
+const storage = getStorage()
 
 export const openImagePicker = async () => {
   const options = {
@@ -13,133 +13,132 @@ export const openImagePicker = async () => {
     includeBase64: false,
     maxHeight: 2000,
     maxWidth: 2000,
-  };
+  }
 
   return new Promise((resolve, reject) => {
     launchImageLibrary(options, response => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
-        resolve(null);
+        console.log('User cancelled image picker')
+        resolve(null)
       } else if (response.error) {
-        console.log('Image picker error: ', response.error);
-        reject(response.error);
+        console.log('Image picker error: ', response.error)
+        reject(response.error)
       } else {
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        resolve({uri: imageUri});
+        let imageUri = response.uri || response.assets?.[0]?.uri
+        resolve({ uri: imageUri })
       }
-    });
-  });
-};
+    })
+  })
+}
 
 export const uploadImage = async image => {
-  if (!image) return null;
+  if (!image) return null
 
-  const fileBlob = await getBlobFroUri(image);
-  const imgName = 'img-' + new Date().getTime();
-  const storageRef = ref(storage, `images/${imgName}.jpg`);
+  const fileBlob = await getBlobFroUri(image)
+  const imgName = 'img-' + new Date().getTime()
+  const storageRef = ref(storage, `images/${imgName}.jpg`)
 
-  const snapshot = await uploadBytes(storageRef, fileBlob);
-  return getDownloadURL(snapshot.ref);
-};
+  const snapshot = await uploadBytes(storageRef, fileBlob)
+  return getDownloadURL(snapshot.ref)
+}
 
 const getBlobFroUri = uri => {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest()
     xhr.onload = function () {
-      resolve(xhr.response);
-    };
+      resolve(xhr.response)
+    }
     xhr.onerror = function (e) {
-      reject(new TypeError('Network request failed'));
-    };
-    xhr.responseType = 'blob';
-    xhr.open('GET', uri, true);
-    xhr.send(null);
-  });
-};
+      reject(new TypeError('Network request failed'))
+    }
+    xhr.responseType = 'blob'
+    xhr.open('GET', uri, true)
+    xhr.send(null)
+  })
+}
 
 export const getAllDocs = async collectionName => {
   try {
-    const collectionRef = collection(db, collectionName);
-    const data = await getDocs(collectionRef);
+    const collectionRef = collection(db, collectionName)
+    const data = await getDocs(collectionRef)
     const filteredData = data.docs.map(doc => ({
       ...doc.data(),
       id: doc.id,
-    }));
-    return filteredData;
+    }))
+    return filteredData
   } catch (error) {}
-};
+}
 
 export const getDocByKey = async (collectionName, key, value) => {
   try {
-    const collectionRef = collection(db, collectionName);
-    const q = query(collectionRef, where(key, '==', value));
-    const querySnapshot = await getDocs(q);
+    const collectionRef = collection(db, collectionName)
+    const q = query(collectionRef, where(key, '==', value))
+    const querySnapshot = await getDocs(q)
 
     if (querySnapshot.empty) {
-      console.log('did not find anything..');
-      return null;
+      console.log('did not find anything..')
+      return null
     }
 
-    const result = querySnapshot.docs[0];
-    return result.data();
+    const result = querySnapshot.docs[0]
+    return result.data()
   } catch (error) {
-    console.log('in getDoc', error);
+    console.log('in getDoc', error)
   }
-};
+}
 
 export const getDocsByKey = async (collectionName, key, value) => {
   try {
-    const collectionRef = collection(db, collectionName);
-    const q = query(collectionRef, where(key, '==', value));
-    const querySnapshot = await getDocs(q);
+    const collectionRef = collection(db, collectionName)
+    const q = query(collectionRef, where(key, '==', value))
+    const querySnapshot = await getDocs(q)
 
     if (querySnapshot.empty) {
-      console.log('did not find applications');
-      return null;
+      console.log('did not find applications')
+      return null
     }
 
     const filteredData = querySnapshot.docs.map(doc => ({
       ...doc.data(),
       id: doc.id,
-    }));
-    console.log('candidates applications: ', FileReader);
-    return filteredData;
+    }))
+    console.log('candidates applications: ', FileReader)
+    return filteredData
   } catch (error) {
-    console.log('in getDoc', error);
+    console.log('in getDoc', error)
   }
-};
+}
 
 export const dateFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-});
+})
 
 export const timeFormatter = new Intl.DateTimeFormat('en-US', {
   hour: 'numeric',
   minute: 'numeric',
   second: 'numeric',
-});
+})
 
 export const getOngoingElections = electionsArray => {
-  const currentDate = new Date();
+  const currentDate = new Date()
   const result = electionsArray.filter(
-    election =>
-      currentDate >= election.startDate && currentDate <= election.endDate,
-  );
-  console.log('on going elections: ', result);
-  return result;
-};
+    election => currentDate >= election.startDate && currentDate <= election.endDate
+  )
+  console.log('on going elections: ', result)
+  return result
+}
 
 export const getEndedElections = electionsArray => {
-  const currentDate = new Date();
-  return electionsArray.filter(election => currentDate > election.endDate);
-};
+  const currentDate = new Date()
+  return electionsArray.filter(election => currentDate > election.endDate)
+}
 
 export const getFutureElections = electionsArray => {
-  const currentDate = new Date();
-  return electionsArray.filter(election => currentDate < election.startDate);
-};
+  const currentDate = new Date()
+  return electionsArray.filter(election => currentDate < election.startDate)
+}
 
 export const confirmationBox = async () => {
   return new Promise(resolve => {
@@ -152,9 +151,9 @@ export const confirmationBox = async () => {
         text: 'Confirm',
         onPress: () => resolve(true),
       },
-    ]);
-  });
-};
+    ])
+  })
+}
 
 export const showAlert = msg => {
   Alert.alert(
@@ -166,30 +165,26 @@ export const showAlert = msg => {
         onPress: () => {},
       },
     ],
-    {cancelable: true},
-  );
-};
+    { cancelable: true }
+  )
+}
 
 export const getVoteCount = (votesCasted, electionId, candidateList) => {
-  console.log('\n\n allCastedVotes: ', votesCasted);
-  const electionVotes = votesCasted.filter(
-    vote => vote.electionId === electionId,
-  );
+  console.log('\n\n allCastedVotes: ', votesCasted)
+  const electionVotes = votesCasted.filter(vote => vote.electionId === electionId)
 
-  const voteCount = {};
+  const voteCount = {}
 
   electionVotes.forEach(vote => {
-    const {candidateId} = vote;
+    const { candidateId } = vote
 
-    const matchingCandidate = candidateList.find(
-      candidate => candidate.id === candidateId,
-    );
+    const matchingCandidate = candidateList.find(candidate => candidate.id === candidateId)
 
     if (matchingCandidate) {
-      const {id, user} = matchingCandidate;
-      voteCount[id] = {id, user, count: (voteCount[id]?.count || 0) + 1};
+      const { id, user } = matchingCandidate
+      voteCount[id] = { id, user, count: (voteCount[id]?.count || 0) + 1 }
     }
-  });
+  })
 
-  return voteCount;
-};
+  return voteCount
+}

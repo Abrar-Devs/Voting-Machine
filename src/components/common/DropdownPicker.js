@@ -1,22 +1,19 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 
-import globalStyles from '../../utils/styles/globalstyles';
+import globalStyles from '../../utils/styles/globalstyles'
 
-const DropdownPicker = ({label, items, selectedValue, onValueChange}) => (
+const DropdownPicker = ({ label, items, selectedValue, onValueChange }) => (
   <View style={styles.container}>
     <Text style={styles.label}>{label}</Text>
-    <Picker
-      selectedValue={selectedValue}
-      onValueChange={onValueChange}
-      style={globalStyles.input}>
+    <Picker selectedValue={selectedValue} onValueChange={onValueChange} style={globalStyles.input}>
       {items.map((item, index) => (
         <Picker.Item key={index} label={item.name} value={item.name} />
       ))}
     </Picker>
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +30,6 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     textAlign: 'center',
   },
-});
+})
 
-export default DropdownPicker;
+export default DropdownPicker

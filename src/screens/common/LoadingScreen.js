@@ -1,7 +1,7 @@
-import React from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import LoadingIndicator from '../../components/common/LoadingIndicator';
+import React from 'react'
 
-const LoadingScreen = () => <LoadingIndicator />;
+import LoadingIndicator from '../../components/common/LoadingIndicator'
 
-export default LoadingScreen;
+const LoadingScreen = () => <LoadingIndicator />
+
+export default LoadingScreen

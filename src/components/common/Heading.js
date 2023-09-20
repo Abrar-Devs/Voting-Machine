@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
-const Heading = ({text}) => (
+const Heading = ({ text }) => (
   <View style={styles.headingContainer}>
     <Text style={styles.headingText}>{text}</Text>
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   headingContainer: {
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
+})
 
-export default Heading;
+export default Heading

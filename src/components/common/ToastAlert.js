@@ -1,11 +1,12 @@
-import React from 'react';
-import {useToast} from 'react-native-toast-notifications';
-import LoadingIndicator from './LoadingIndicator';
+import React from 'react'
+import { useToast } from 'react-native-toast-notifications'
 
-const ToastAlert = ({message}) => {
-  const toast = useToast();
-  toast.show(message, {placement: 'top', duration: 1000});
-  return <LoadingIndicator message={message} />;
-};
+import LoadingIndicator from './LoadingIndicator'
 
-export default ToastAlert;
+const ToastAlert = ({ message }) => {
+  const toast = useToast()
+  toast.show(message, { placement: 'top', duration: 1000 })
+  return <LoadingIndicator message={message} />
+}
+
+export default ToastAlert

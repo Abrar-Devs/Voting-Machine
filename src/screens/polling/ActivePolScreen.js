@@ -1,37 +1,39 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import {getOngoingElections, showAlert} from '../../utils/helpers';
-import ScreenComponent from '../../components/polling/ScreenComponent';
-import CastVoteScreen from './CastVoteScreen';
-import {getUserVotes} from '../../actions/asyncActions';
-import LoadingIndicator from '../../components/common/LoadingIndicator';
+import { getOngoingElections, showAlert } from '../../utils/helpers'
+import ScreenComponent from '../../components/polling/ScreenComponent'
+import CastVoteScreen from './CastVoteScreen'
+import { getUserVotes } from '../../actions/asyncActions'
+import LoadingIndicator from '../../components/common/LoadingIndicator'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
-const ActivePolScreen = ({navigation}) => {
-  const dispatch = useDispatch();
-  const userVotes = useSelector(state => state.votesCasted);
-  const user = useSelector(state => state.user);
-  const {loading, message} = useSelector(state => state.model);
+const ActivePolScreen = ({ navigation }) => {
+  const userVotes = useSelector(state => state.votesCasted)
+  const user = useSelector(state => state.user)
+  const { loading, message } = useSelector(state => state.model)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUserVotes())
+  }, [])
 
   const btnHandler = election => {
     const userAlreadyVoted = userVotes.some(
-      vote => vote.user === user.email && vote.electionId === election.id,
-    );
+      vote => vote.user === user.email && vote.electionId === election.id
+    )
+
     if (userAlreadyVoted) {
-      showAlert('You have already voted in this election..');
-      return;
+      showAlert('You have already voted in this election..')
+      return
     }
-    navigation.navigate('CastVoteScreen', {election});
-  };
 
-  useEffect(() => {
-    dispatch(getUserVotes());
-  }, []);
+    navigation.navigate('CastVoteScreen', { election })
+  }
 
-  if (loading) return <LoadingIndicator message={message} />;
+  if (loading) return <LoadingIndicator message={message} />
 
   return (
     <ScreenComponent
@@ -40,18 +42,14 @@ const ActivePolScreen = ({navigation}) => {
       btnTitle={'Cast Vote'}
       btnHandler={btnHandler}
     />
-  );
-};
+  )
+}
 
-const Navigator = () => {
-  return (
-    <Stack.Navigator
-      initialRouteName="ActivePolScreen"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="ActivePolScreen" component={ActivePolScreen} />
-      <Stack.Screen name="CastVoteScreen" component={CastVoteScreen} />
-    </Stack.Navigator>
-  );
-};
+const Navigator = () => (
+  <Stack.Navigator initialRouteName='ActivePolScreen' screenOptions={{ headerShown: false }}>
+    <Stack.Screen name='ActivePolScreen' component={ActivePolScreen} />
+    <Stack.Screen name='CastVoteScreen' component={CastVoteScreen} />
+  </Stack.Navigator>
+)
 
-export default Navigator;
+export default Navigator

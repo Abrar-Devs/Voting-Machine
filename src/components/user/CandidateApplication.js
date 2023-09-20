@@ -1,35 +1,36 @@
-import React from 'react';
-import {View} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import React from 'react'
+import { View } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
-import FormikForm from '../common/FormikForm';
-import {applicationFormSchema} from '../../utils/validation/yupValidations';
-import {submitCandidateApplication} from '../../actions/asyncActions';
-import LoadingIndicator from '../common/LoadingIndicator';
-import globalStyles from '../../utils/styles/globalstyles';
+import FormikForm from '../common/FormikForm'
+import { applicationFormSchema } from '../../utils/validation/yupValidations'
+import { submitCandidateApplication } from '../../actions/asyncActions'
+import LoadingIndicator from '../common/LoadingIndicator'
+import globalStyles from '../../utils/styles/globalstyles'
 
 const formValues = {
   partyName: '',
-};
+}
 
 const CandidateApplication = () => {
-  const currentUser = useSelector(state => state.user);
-  const dispatch = useDispatch();
-  const {loading, message} = useSelector(state => state.model);
+  const currentUser = useSelector(state => state.user)
+  const { loading, message } = useSelector(state => state.model)
+  const dispatch = useDispatch()
 
-  const handleSubmit = async ({partyName, profilePic}) => {
+  const handleSubmit = async ({ partyName, profilePic }) => {
     const applicationObj = {
       user: currentUser.email,
       constitution: currentUser.constitution,
       partyName,
       partySymbol: profilePic,
       approved: false,
-    };
+    }
 
-    dispatch(submitCandidateApplication(applicationObj));
-  };
+    dispatch(submitCandidateApplication(applicationObj))
+  }
 
-  if (loading) return <LoadingIndicator message={message} />;
+  if (loading) return <LoadingIndicator message={message} />
+
   return (
     <View style={globalStyles.container}>
       <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
@@ -39,12 +40,12 @@ const CandidateApplication = () => {
           formValues={formValues}
           handleSubmit={handleSubmit}
           showImgPicker={true}
-          btnText="Submit Application"
-          imgText="Choose symbol image"
+          btnText='Submit Application'
+          imgText='Choose symbol image'
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default CandidateApplication;
+export default CandidateApplication

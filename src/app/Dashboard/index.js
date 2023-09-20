@@ -1,8 +1,6 @@
 import React from 'react';
 import Drawer from './Drawer';
 
-const index = () => {
-  return <Drawer />;
-};
+const index = () => <Drawer />;
 
 export default index;

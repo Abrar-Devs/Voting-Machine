@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import UserProfile from '../../components/user/UserProfile';
+import UserProfile from '../../components/user/UserProfile'
 
-const UserProfileScreen = () => <UserProfile />;
+const UserProfileScreen = () => <UserProfile />
 
-export default UserProfileScreen;
+export default UserProfileScreen

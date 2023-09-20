@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 
-import globalStyles from '../../utils/styles/globalstyles';
-import {dateFormatter, timeFormatter} from '../../utils/helpers';
+import globalStyles from '../../utils/styles/globalstyles'
+import { dateFormatter, timeFormatter } from '../../utils/helpers'
 
 const ElectionCard = ({
   id,
@@ -13,15 +13,8 @@ const ElectionCard = ({
   disableBtn = false,
   handleBtnClick,
 }) => (
-  <View
-    style={[
-      globalStyles.cardView,
-      globalStyles.container,
-      globalStyles.boxShadow(),
-    ]}>
-    <Text style={[globalStyles.boldText, globalStyles.txtColor()]}>
-      {electionName}
-    </Text>
+  <View style={[globalStyles.cardView, globalStyles.container, globalStyles.boxShadow()]}>
+    <Text style={[globalStyles.boldText, globalStyles.txtColor()]}>{electionName}</Text>
     <Text style={globalStyles.text()}>
       <Text style={globalStyles.label}>Start Date: </Text>
       {dateFormatter.format(startDate)}
@@ -36,13 +29,14 @@ const ElectionCard = ({
       disabled={disableBtn}
       style={[
         globalStyles.btn,
-        globalStyles.spacings({mrgnTop: 10, pdngHztl: 20}),
+        globalStyles.spacings({ mrgnTop: 10, pdngHztl: 20 }),
         disableBtn ? globalStyles.disabledBtn : {},
       ]}
-      onPress={() => handleBtnClick(id)}>
+      onPress={() => handleBtnClick(id)}
+    >
       <Text style={globalStyles.text()}> {btnText}</Text>
     </TouchableOpacity>
   </View>
-);
+)
 
-export default ElectionCard;
+export default ElectionCard

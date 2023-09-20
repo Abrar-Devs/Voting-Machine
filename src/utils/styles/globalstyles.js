@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const globalStyles = StyleSheet.create({
   container: {
@@ -71,7 +71,7 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: pdngHztl,
     marginTop: mrgnTop,
   }),
-  dimensions: ({width, height = 'auto'}) => ({
+  dimensions: ({ width, height = 'auto' }) => ({
     width: width,
     height: height,
   }),
@@ -88,6 +88,6 @@ const globalStyles = StyleSheet.create({
     elevation: 10,
     backgroundColor: 'white',
   }),
-});
+})
 
-export default globalStyles;
+export default globalStyles
