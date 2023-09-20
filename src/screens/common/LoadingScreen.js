@@ -1,7 +1,5 @@
 import React from 'react'
 
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 
-const LoadingScreen = () => <LoadingIndicator />
-
-export default LoadingScreen
+export default LoadingScreen = () => <LoadingIndicator />

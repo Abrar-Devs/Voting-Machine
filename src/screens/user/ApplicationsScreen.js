@@ -5,7 +5,7 @@ import { Card } from '@rneui/themed'
 
 import globalStyles from '../../utils/styles/globalstyles'
 import { approveCandidateApplication, getCandidateApplications } from '../../actions/asyncActions'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 
 const ApplicationsScreen = () => {
   const applications = useSelector(state => state.applications)

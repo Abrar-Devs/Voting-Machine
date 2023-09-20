@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CandidateApplication from '../../components/user/CandidateApplication'
 import CandidateProfile from '../../components/user/CandidateProfile'
 import { getCandidateProfile } from '../../actions/asyncActions'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 
 const CandidateProfileScreen = () => {
   const candidate = useSelector(state => state.candidate)

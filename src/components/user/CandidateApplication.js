@@ -2,10 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import FormikForm from '../common/FormikForm'
+import FormikForm from '../helpers/FormikForm'
 import { applicationFormSchema } from '../../utils/validation/yupValidations'
 import { submitCandidateApplication } from '../../actions/asyncActions'
-import LoadingIndicator from '../common/LoadingIndicator'
+import LoadingIndicator from '../helpers/LoadingIndicator'
 import globalStyles from '../../utils/styles/globalstyles'
 
 const formValues = {

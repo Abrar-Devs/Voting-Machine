@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import ElectionCard from './ElectionCard'
 import globalStyles from '../../utils/styles/globalstyles'
-import Heading from '../common/Heading'
+import Heading from '../helpers/Heading'
 
 const ScreenComponent = ({ title, filterElections, btnTitle, btnHandler }) => {
   const elections = useSelector(state => state.elections)

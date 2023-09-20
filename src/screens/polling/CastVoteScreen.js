@@ -9,6 +9,22 @@ import { confirmationBox } from '../../utils/helpers'
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
 
+const CandidateCard = ({ id, partyName, partySymbol, user, castVote }) => (
+  <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
+    <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
+    <Card.Divider />
+    <Card.Image
+      source={{
+        uri: partySymbol,
+      }}
+    />
+    <Text style={globalStyles.boldText}>Party: {partyName}</Text>
+    <TouchableOpacity style={globalStyles.btn} onPress={() => castVote(id)}>
+      <Text style={globalStyles.text()}>Vote</Text>
+    </TouchableOpacity>
+  </View>
+)
+
 const CastVoteScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const candidates = useSelector(state => state.constitutionCandidates)
@@ -26,7 +42,7 @@ const CastVoteScreen = ({ navigation, route }) => {
   return (
     <ScrollView>
       <Text style={[globalStyles.label, globalStyles.boldText]}>Candidates</Text>
-      <View style={globalStyles.container}>
+      <View style={[globalStyles.container, globalStyles.flexGap(15)]}>
         {candidates.map(candidate => (
           <CandidateCard key={candidate.id} {...candidate} castVote={handleCastVote} />
         ))}
@@ -34,21 +50,5 @@ const CastVoteScreen = ({ navigation, route }) => {
     </ScrollView>
   )
 }
-
-const CandidateCard = ({ id, partyName, partySymbol, user, castVote }) => (
-  <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
-    <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
-    <Card.Divider />
-    <Card.Image
-      source={{
-        uri: partySymbol,
-      }}
-    />
-    <Text style={globalStyles.boldText}>Party: {partyName}</Text>
-    <TouchableOpacity style={globalStyles.btn} onPress={() => castVote(id)}>
-      <Text style={globalStyles.text()}>Vote</Text>
-    </TouchableOpacity>
-  </View>
-)
 
 export default CastVoteScreen

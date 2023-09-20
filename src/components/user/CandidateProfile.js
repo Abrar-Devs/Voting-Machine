@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { View, StyleSheet } from 'react-native'
 import { Avatar, Divider } from 'react-native-elements'
 
-import TextWithLabel from '../common/TextWithLabel'
+import TextWithLabel from '../helpers/TextWithLabel'
 import globalStyles from '../../utils/styles/globalstyles'
 
 const CandidateProfile = () => {

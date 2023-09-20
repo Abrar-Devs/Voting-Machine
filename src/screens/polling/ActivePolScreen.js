@@ -6,7 +6,7 @@ import { getOngoingElections, showAlert } from '../../utils/helpers'
 import ScreenComponent from '../../components/polling/ScreenComponent'
 import CastVoteScreen from './CastVoteScreen'
 import { getUserVotes } from '../../actions/asyncActions'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 
 const Stack = createNativeStackNavigator()
 

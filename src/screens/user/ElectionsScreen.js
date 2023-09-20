@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import globalStyles from '../../utils/styles/globalstyles'
 import { deleteElection, getAllElections } from '../../actions/asyncActions'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 import ElectionCard from '../../components/polling/ElectionCard'
 
 const ElectionsScreen = () => {

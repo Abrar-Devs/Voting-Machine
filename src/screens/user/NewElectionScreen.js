@@ -6,10 +6,10 @@ import { useToast } from 'react-native-toast-notifications'
 
 import globalStyles from '../../utils/styles/globalstyles'
 import { dateFormatter, timeFormatter } from '../../utils/helpers'
-import FormikForm from '../../components/common/FormikForm'
+import FormikForm from '../../components/helpers/FormikForm'
 import { newElectionSchema } from '../../utils/validation/yupValidations'
 import { createElection } from '../../actions/asyncActions'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
 
 const NewElectionScreen = () => {
   const [startDate, setStartDate] = useState(new Date())

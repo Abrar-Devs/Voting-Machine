@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getAllCastedVotes } from '../../actions/asyncActions'
 import { getVoteCount } from '../../utils/helpers'
-import LoadingIndicator from '../../components/common/LoadingIndicator'
-import TextWithLabel from '../../components/common/TextWithLabel'
+import LoadingIndicator from '../../components/helpers/LoadingIndicator'
+import TextWithLabel from '../../components/helpers/TextWithLabel'
 import globalStyles from '../../utils/styles/globalstyles'
-import Heading from '../../components/common/Heading'
+import Heading from '../../components/helpers/Heading'
 
 const ElectionResultScreen = ({ route }) => {
   const { loading, message } = useSelector(state => state.model)
