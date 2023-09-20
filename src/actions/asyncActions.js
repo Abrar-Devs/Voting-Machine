@@ -125,9 +125,7 @@ export const submitCandidateApplication = createAsyncThunk(
     try {
       console.log('in firebase candidateApplication');
 
-      const filesFolderRef = ref(storage, `partySymbols/${values.partyName}`);
-      await uploadBytes(filesFolderRef, values.partySymbol.uri);
-      const downloadURL = await getDownloadURL(filesFolderRef);
+      const downloadURL = await uploadImage(values.partySymbol.uri);
 
       console.log('before adding application to collection');
       const usersCollectionRef = collection(db, 'candidates');
@@ -162,10 +160,19 @@ export const approveCandidateApplication = createAsyncThunk(
   async (id, {getState}) => {
     try {
       const state = getState();
-      const applicationRef = doc(db, 'candidates', id);
-      await updateDoc(applicationRef, {approved: true});
+
+      console.log('id got:', id);
+      console.log(
+        '\n\n\nbefore filtering applications: ',
+        state.applications,
+        '\n\n',
+      );
 
       const applicationsLeft = state.applications.filter(item => item.id != id);
+      console.log('\n\n\nApplications left: ', applicationsLeft, '\n\n');
+
+      const applicationRef = doc(db, 'candidates', id);
+      await updateDoc(applicationRef, {approved: true});
       return applicationsLeft;
     } catch (error) {
       console.log(error.message);

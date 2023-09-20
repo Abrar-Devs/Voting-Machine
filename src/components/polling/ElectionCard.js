@@ -14,20 +14,25 @@ const ElectionCard = ({
   handleBtnClick,
 }) => {
   return (
-    <View style={[globalStyles.cardView, globalStyles.container]}>
+    <View
+      style={[
+        globalStyles.cardView,
+        globalStyles.container,
+        globalStyles.boxShadow(),
+      ]}>
       <Text style={[globalStyles.boldText, globalStyles.txtColor()]}>
         {electionName}
       </Text>
-      <Text style={globalStyles.text}>
+      <Text style={globalStyles.text()}>
         <Text style={globalStyles.label}>Start Date: </Text>
         {dateFormatter.format(startDate)}
       </Text>
-      <Text style={globalStyles.text}>{timeFormatter.format(startDate)}</Text>
-      <Text style={globalStyles.text}>
+      <Text style={globalStyles.text()}>{timeFormatter.format(startDate)}</Text>
+      <Text style={globalStyles.text()}>
         <Text style={globalStyles.label}>End Date: </Text>
         {dateFormatter.format(endDate)}
       </Text>
-      <Text style={globalStyles.text}>{timeFormatter.format(endDate)}</Text>
+      <Text style={globalStyles.text()}>{timeFormatter.format(endDate)}</Text>
       <TouchableOpacity
         disabled={disableBtn}
         style={[
@@ -36,7 +41,7 @@ const ElectionCard = ({
           disableBtn ? globalStyles.disabledBtn : {},
         ]}
         onPress={() => handleBtnClick(id)}>
-        <Text style={globalStyles.text}> {btnText}</Text>
+        <Text style={globalStyles.text()}> {btnText}</Text>
       </TouchableOpacity>
     </View>
   );

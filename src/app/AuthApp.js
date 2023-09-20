@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useDispatch, useSelector} from 'react-redux';
 
 import Dashboard from './Dashboard';
+import LoginScreen from '../screens/auth/loginScreen';
+import RegisterScreen from '../screens/auth/registerScreen';
+import LoadingScreen from '../screens/common/LoadingScreen';
 import {
   getAllConstitutions,
   checkSession,
   initApp,
 } from '../actions/asyncActions';
-import LoginScreen from '../screens/auth/loginScreen';
-import LoadingScreen from '../screens/common/LoadingScreen';
-import RegisterScreen from '../screens/auth/registerScreen';
 
 const StackNav = createNativeStackNavigator();
 
@@ -23,10 +23,10 @@ const AuthApp = () => {
 
   useEffect(() => {
     dispatch(initApp());
+    dispatch(getAllConstitutions());
     setTimeout(() => {
       dispatch(checkSession());
     }, 3000);
-    dispatch(getAllConstitutions());
   }, []);
 
   if (loading) return <LoadingScreen />;

@@ -48,10 +48,10 @@ const NewElectionScreen = () => {
       return;
     }
     const diff = (endDate - startDate) / (1000 * 60 * 60);
-    if (diff < 1) {
-      setErr('There must be at least one hour for an election');
-      return;
-    }
+    // if (diff < 1) {
+    //   setErr('There must be at least one hour for an election');
+    //   return;
+    // }
     setErr(null);
   }, [startDate, endDate]);
 
@@ -89,20 +89,20 @@ const PickDateTime = ({label, date, setDate}) => {
   const [open, setOpen] = useState(false);
   return (
     <View style={globalStyles.cardView}>
-      <Text style={[globalStyles.text, globalStyles.label]}>{label}</Text>
+      <Text style={[globalStyles.text(), globalStyles.label]}>{label}</Text>
       <Text
         style={[
           globalStyles.input,
-          globalStyles.text,
+          globalStyles.text(),
           globalStyles.dimensions({width: '100%'}),
         ]}>
         {dateFormatter.format(date)}
       </Text>
-      <Text style={[globalStyles.text]}>{timeFormatter.format(date)}</Text>
+      <Text style={[globalStyles.text()]}>{timeFormatter.format(date)}</Text>
       <TouchableOpacity
         style={[globalStyles.btn, globalStyles.spacings({mrgnTop: 10})]}
         onPress={() => setOpen(true)}>
-        <Text style={[globalStyles.text, globalStyles.txtColor('white')]}>
+        <Text style={[globalStyles.text(), globalStyles.txtColor('white')]}>
           Select {label}
         </Text>
       </TouchableOpacity>

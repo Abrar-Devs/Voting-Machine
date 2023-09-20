@@ -1,16 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Avatar, Card} from 'react-native-elements';
 import {useSelector} from 'react-redux';
+import {View, StyleSheet} from 'react-native';
+import {Avatar, Card, Divider} from 'react-native-elements';
 
+import TextWithLabel from '../common/TextWithLabel';
 import globalStyles from '../../utils/styles/globalstyles';
 
 const CandidateProfile = () => {
   const candidate = useSelector(state => state.candidate);
 
   return (
-    <View style={styles.cardContainer}>
-      <Card>
+    <View style={globalStyles.container}>
+      <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
         <Avatar
           rounded
           size="xlarge"
@@ -18,16 +19,20 @@ const CandidateProfile = () => {
           containerStyle={styles.avatarContainer}
         />
 
-        <Text style={[styles.userInfo, globalStyles.spacings({mrgnTop: 15})]}>
-          <Text style={globalStyles.label}>Party Name: </Text>
-          {candidate.partyName}
-        </Text>
+        <Divider style={styles.divider} />
 
-        <Text style={[styles.userInfo]}>
-          <Text style={globalStyles.label}>Approved: </Text>
-          {candidate.approved ? 'Yes' : 'Not'}
-        </Text>
-      </Card>
+        <TextWithLabel
+          label={'Party Name'}
+          text={candidate.partyName}
+          textAlign="left"
+        />
+
+        <TextWithLabel
+          label={'Approved'}
+          text={candidate.approved ? 'Yes' : 'Not'}
+          textAlign="left"
+        />
+      </View>
     </View>
   );
 };
@@ -40,28 +45,8 @@ const styles = StyleSheet.create({
   avatarContainer: {
     alignSelf: 'center',
   },
-  img: {
-    width: 200,
-    height: 200,
-  },
-  username: {
-    fontSize: 24,
-    textTransform: 'capitalize',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 10,
-  },
   divider: {
     marginVertical: 10,
-  },
-  userInfo: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  profilePic: {
-    width: 200, // Adjust the width and height as needed
-    height: 200,
-    borderRadius: 100, // For a circular profile picture
   },
 });
 

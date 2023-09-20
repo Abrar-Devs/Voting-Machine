@@ -98,7 +98,6 @@ export const userSlice = createSlice({
 
       .addCase(approveCandidateApplication.pending, (state, action) => {
         state.model = setModel(true, 'Approving Application');
-        state.applications = action.payload ?? [];
       })
       .addCase(approveCandidateApplication.fulfilled, (state, action) => {
         state.model = setModel();
@@ -170,7 +169,6 @@ export const userSlice = createSlice({
         state.user = null;
         state.isAdmin = false;
         state.loading = false;
-        state.constitutions = [];
         state.candidate = null;
         state.applications = [];
         state.elections = [];

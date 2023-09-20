@@ -1,10 +1,12 @@
 import React from 'react';
+import {View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import FormikForm from '../common/FormikForm';
 import {applicationFormSchema} from '../../utils/validation/yupValidations';
 import {submitCandidateApplication} from '../../actions/asyncActions';
 import LoadingIndicator from '../common/LoadingIndicator';
+import globalStyles from '../../utils/styles/globalstyles';
 
 const formValues = {
   partyName: '',
@@ -29,15 +31,19 @@ const CandidateApplication = () => {
 
   if (loading) return <LoadingIndicator message={message} />;
   return (
-    <FormikForm
-      title={'Candidate Application'}
-      validationSchema={applicationFormSchema}
-      formValues={formValues}
-      handleSubmit={handleSubmit}
-      showImgPicker={true}
-      btnText="Submit Application"
-      imgText="Choose symbol image"
-    />
+    <View style={globalStyles.container}>
+      <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
+        <FormikForm
+          title={'Candidate Application'}
+          validationSchema={applicationFormSchema}
+          formValues={formValues}
+          handleSubmit={handleSubmit}
+          showImgPicker={true}
+          btnText="Submit Application"
+          imgText="Choose symbol image"
+        />
+      </View>
+    </View>
   );
 };
 

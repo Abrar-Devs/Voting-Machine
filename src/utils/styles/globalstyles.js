@@ -10,11 +10,11 @@ const globalStyles = StyleSheet.create({
   flexGap: g => ({
     gap: g,
   }),
-  text: {
+  text: (align = 'center') => ({
     fontSize: 16,
     color: 'black',
-    textAlign: 'center',
-  },
+    textAlign: align,
+  }),
   linkText: {
     textDecorationLine: 'underline',
     color: 'skyblue',
@@ -83,6 +83,11 @@ const globalStyles = StyleSheet.create({
     borderWidth: 1,
     width: '80%',
   },
+
+  boxShadow: (amount = 10) => ({
+    elevation: 10,
+    backgroundColor: 'white',
+  }),
 });
 
 export default globalStyles;

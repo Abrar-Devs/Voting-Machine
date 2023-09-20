@@ -40,7 +40,10 @@ const ApplicationsScreen = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <Text style={[globalStyles.label, globalStyles.boldText]}>
+        Applications to Approve
+      </Text>
+      <View style={[globalStyles.container, globalStyles.flexGap(10)]}>
         {applications.map(item => (
           <Application
             key={item.id}
@@ -61,7 +64,7 @@ const Application = ({
   approveApplication,
 }) => {
   return (
-    <Card>
+    <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
       <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
       <Card.Divider />
       <Card.Image
@@ -73,9 +76,9 @@ const Application = ({
       <TouchableOpacity
         style={globalStyles.btn}
         onPress={() => approveApplication(id)}>
-        <Text style={globalStyles.text}>Approve</Text>
+        <Text style={globalStyles.text()}>Approve</Text>
       </TouchableOpacity>
-    </Card>
+    </View>
   );
 };
 

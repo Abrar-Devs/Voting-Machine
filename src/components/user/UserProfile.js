@@ -1,70 +1,57 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Avatar, Card, Divider} from 'react-native-elements';
-import {useSelector} from 'react-redux';
+
+import TextWithLabel from '../common/TextWithLabel';
 import globalStyles from '../../utils/styles/globalstyles';
 
 const UserProfile = () => {
   const user = useSelector(state => state.user);
-  console.log('in usrProfile', user);
+
   return (
-    <View style={styles.cardContainer}>
-      <Card>
+    <View style={globalStyles.container}>
+      <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
         <Avatar
           rounded
           size="xlarge"
           source={{uri: user.profilePic}}
           containerStyle={styles.avatarContainer}
         />
-        <Text style={[styles.username, globalStyles.txtColor()]}>
+
+        <Text
+          style={[
+            styles.username,
+            globalStyles.boldText,
+            globalStyles.txtColor(),
+          ]}>
           {user.name}
         </Text>
+
         <Divider style={styles.divider} />
-        <Text style={styles.userInfo}>
-          <Text style={globalStyles.label}>Email:</Text> {user.email}
-        </Text>
-        <Text style={styles.userInfo}>
-          <Text style={globalStyles.label}>Constitution:</Text>{' '}
-          {user.constitution}
-        </Text>
-        <Text style={styles.userInfo}>
-          <Text style={globalStyles.label}>CNIC:</Text> {user.cnic}
-        </Text>
-      </Card>
+
+        <TextWithLabel label={'Email'} text={user.email} textAlign="left" />
+
+        <TextWithLabel
+          label={'Constitution'}
+          text={user.constitution}
+          textAlign="left"
+        />
+        <TextWithLabel label={'CNIC'} text={user.cnic} textAlign="left" />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   avatarContainer: {
     alignSelf: 'center',
   },
-  img: {
-    width: 200,
-    height: 200,
-  },
   username: {
-    fontSize: 24,
     textTransform: 'capitalize',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 10,
   },
   divider: {
     marginVertical: 10,
-  },
-  userInfo: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  profilePic: {
-    width: 200, // Adjust the width and height as needed
-    height: 200,
-    borderRadius: 100, // For a circular profile picture
   },
 });
 

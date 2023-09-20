@@ -24,7 +24,7 @@ const Login = () => {
   return (
     <>
       <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={[globalStyles.text, globalStyles.linkText]}>
+        <Text style={[globalStyles.text(), globalStyles.linkText]}>
           Don't have an account?
         </Text>
       </TouchableOpacity>

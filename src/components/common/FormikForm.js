@@ -86,7 +86,7 @@ const FormikForm = ({
                 <TouchableOpacity onPress={handleImgSelection}>
                   <Text
                     style={[
-                      globalStyles.text,
+                      globalStyles.text(),
                       {textDecorationLine: 'underline'},
                     ]}>
                     {imgText}

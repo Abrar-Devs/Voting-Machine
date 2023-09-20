@@ -50,7 +50,7 @@ const CandidateCard = ({id, partyName, partySymbol, user, castVote}) => {
       />
       <Text style={globalStyles.boldText}>Party: {partyName}</Text>
       <TouchableOpacity style={globalStyles.btn} onPress={() => castVote(id)}>
-        <Text style={globalStyles.text}>Vote</Text>
+        <Text style={globalStyles.text()}>Vote</Text>
       </TouchableOpacity>
     </Card>
   );
