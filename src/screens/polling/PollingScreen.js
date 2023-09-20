@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import ActivePolScreen from './ActivePolScreen';
@@ -12,7 +11,6 @@ import {
 import {useDispatch} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
-//tabBarIconStyle: {display: 'none'}
 function PollingScreen() {
   const dispatch = useDispatch();
 

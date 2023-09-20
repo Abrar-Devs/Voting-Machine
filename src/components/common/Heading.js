@@ -1,13 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const Heading = ({text}) => {
-  return (
-    <View style={styles.headingContainer}>
-      <Text style={styles.headingText}>{text}</Text>
-    </View>
-  );
-};
+const Heading = ({text}) => (
+  <View style={styles.headingContainer}>
+    <Text style={styles.headingText}>{text}</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   headingContainer: {

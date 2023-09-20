@@ -1,8 +1,9 @@
 import {Alert} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {db, auth} from '../config/firebase';
 import {getDocs, collection, query, where} from 'firebase/firestore';
 import {getStorage, ref, getDownloadURL, uploadBytes} from 'firebase/storage';
+
+import {db} from '../config/firebase';
 
 const storage = getStorage();
 

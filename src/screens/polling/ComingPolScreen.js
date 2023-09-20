@@ -3,15 +3,13 @@ import React from 'react';
 import {getFutureElections} from '../../utils/helpers';
 import ScreenComponent from '../../components/polling/ScreenComponent';
 
-const ComingPolScreen = () => {
-  return (
-    <ScreenComponent
-      title={'Coming Up Elections'}
-      filterElections={getFutureElections}
-      btnTitle={'Coming Soon...'}
-      btnHandler={null}
-    />
-  );
-};
+const ComingPolScreen = () => (
+  <ScreenComponent
+    title={'Coming Up Elections'}
+    filterElections={getFutureElections}
+    btnTitle={'Coming Soon...'}
+    btnHandler={null}
+  />
+);
 
 export default ComingPolScreen;

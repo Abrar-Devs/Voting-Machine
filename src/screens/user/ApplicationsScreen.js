@@ -62,25 +62,23 @@ const Application = ({
   partySymbol,
   user,
   approveApplication,
-}) => {
-  return (
-    <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
-      <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
-      <Card.Divider />
-      <Card.Image
-        source={{
-          uri: partySymbol,
-        }}
-      />
-      <Text style={globalStyles.boldText}>Party: {partyName}</Text>
-      <TouchableOpacity
-        style={globalStyles.btn}
-        onPress={() => approveApplication(id)}>
-        <Text style={globalStyles.text()}>Approve</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+}) => (
+  <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
+    <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
+    <Card.Divider />
+    <Card.Image
+      source={{
+        uri: partySymbol,
+      }}
+    />
+    <Text style={globalStyles.boldText}>Party: {partyName}</Text>
+    <TouchableOpacity
+      style={globalStyles.btn}
+      onPress={() => approveApplication(id)}>
+      <Text style={globalStyles.text()}>Approve</Text>
+    </TouchableOpacity>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

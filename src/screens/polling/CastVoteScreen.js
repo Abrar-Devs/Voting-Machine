@@ -2,6 +2,7 @@ import {View, Text, LogBox, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Card} from 'react-native-elements';
+
 import globalStyles from '../../utils/styles/globalstyles';
 import {castVote} from '../../actions/asyncActions';
 import {confirmationBox} from '../../utils/helpers';
@@ -29,7 +30,7 @@ const CastVoteScreen = ({navigation, route}) => {
       <Text style={[globalStyles.label, globalStyles.boldText]}>
         Candidates
       </Text>
-      <View style={globalStyles.spacings({pdngVrtcl: 20})}>
+      <View style={globalStyles.container}>
         {candidates.map(item => (
           <CandidateCard key={item.id} {...item} castVote={handleCastVote} />
         ))}
@@ -38,21 +39,20 @@ const CastVoteScreen = ({navigation, route}) => {
   );
 };
 
-const CandidateCard = ({id, partyName, partySymbol, user, castVote}) => {
-  return (
-    <Card>
-      <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
-      <Card.Divider />
-      <Card.Image
-        source={{
-          uri: partySymbol,
-        }}
-      />
-      <Text style={globalStyles.boldText}>Party: {partyName}</Text>
-      <TouchableOpacity style={globalStyles.btn} onPress={() => castVote(id)}>
-        <Text style={globalStyles.text()}>Vote</Text>
-      </TouchableOpacity>
-    </Card>
-  );
-};
+const CandidateCard = ({id, partyName, partySymbol, user, castVote}) => (
+  <View style={[globalStyles.cardView, globalStyles.boxShadow()]}>
+    <Card.Title style={globalStyles.boldText}>{user}</Card.Title>
+    <Card.Divider />
+    <Card.Image
+      source={{
+        uri: partySymbol,
+      }}
+    />
+    <Text style={globalStyles.boldText}>Party: {partyName}</Text>
+    <TouchableOpacity style={globalStyles.btn} onPress={() => castVote(id)}>
+      <Text style={globalStyles.text()}>Vote</Text>
+    </TouchableOpacity>
+  </View>
+);
+
 export default CastVoteScreen;

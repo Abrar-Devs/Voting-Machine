@@ -4,7 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import {
   collection,
   addDoc,
