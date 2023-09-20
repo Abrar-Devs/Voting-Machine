@@ -5,6 +5,7 @@ export const registerFormSchema = Yup.object().shape({
     .required('Name is required')
     .min(5, 'Name must be at least 5 characters long')
     .max(15, 'Name must not exceed 15 characters')
+    .matches(/^[a-zA-Z0-9\s]*$/, 'Name must not contain special characters')
     .trim(),
   email: Yup.string().email().required('A Valid email is required'),
   password: Yup.string()
@@ -16,7 +17,7 @@ export const registerFormSchema = Yup.object().shape({
     ),
   cnic: Yup.string()
     .required('CNIC is required')
-    .matches(/^\d{13}$/, 'CNIC must be exactly 13 digits long and contain only numbers'),
+    .matches(/^[0-9]{5}-[0-9]{7}-[0-9]$/, 'Invalid format. It should be like 00000-0000000-0'),
 })
 
 export const loginFormSchema = Yup.object().shape({
